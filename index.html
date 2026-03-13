@@ -103,6 +103,7 @@
         }
         .neighborhood-tab {
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         .neighborhood-tab.active {
             background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
@@ -883,109 +884,4 @@
                 <div>
                     <h4 class="font-bold mb-4 text-gold-400">Contact</h4>
                     <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><i class="fas fa-user mr-2"></i> Juwon Ilenaye</li>
-                        <li><i class="fas fa-map-marker-alt mr-2"></i> Lekki Phase 1, Lagos</li>
-                        <li><i class="fas fa-phone mr-2"></i> +234 800 LUXE NG</li>
-                        <li><i class="fas fa-envelope mr-2"></i> juwon@lekkiluxe.ng</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4 text-gold-400">Follow Us</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold-500 transition"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold-500 transition"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold-500 transition"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-white/10 pt-8 text-center text-gray-500 text-sm">
-                <p>&copy; 2025 Lekki Luxe. All rights reserved. Prices subject to change. Managed by Juwon Ilenaye.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Property Data with Juwon Ilenaye as agent
-        const properties = {
-            1: {
-                title: "Furnished Mini Flat",
-                price: "₦9M",
-                location: "Admiralty Way, Lekki Phase 1",
-                beds: 1,
-                baths: 1,
-                sqm: 45,
-                type: "Mini Flat",
-                image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
-                description: "Stylish mini flat perfect for young professionals. Features modern furnishing, 24/7 power backup, and access to swimming pool. Located in the heart of Lekki Phase 1 with easy access to restaurants and shopping centers.",
-                features: ["Fully Furnished", "24/7 Power", "Swimming Pool Access", "Security", "Parking", "Air Conditioning"],
-                agent: "Juwon Ilenaye",
-                phone: "+234 800 LUXE NG"
-            },
-            2: {
-                title: "Luxury Studio",
-                price: "₦5.5M",
-                location: "Femi Okunnu Estate",
-                beds: "Studio",
-                baths: 1,
-                sqm: 35,
-                type: "Studio",
-                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
-                description: "Compact yet luxurious studio apartment in the serene Femi Okunnu Estate. Perfect for singles or couples who appreciate minimalist living with maximum comfort. Includes access to gym and community pool.",
-                features: ["Fully Furnished", "Gym Access", "Pool", "Fiber Internet", "24/7 Security", "Housekeeping"],
-                agent: "Juwon Ilenaye",
-                phone: "+234 800 LUXE NG"
-            },
-            3: {
-                title: "Modern 2-Bed Apartment",
-                price: "₦12M",
-                location: "Bourdillon Court, Lekki",
-                beds: 2,
-                baths: 2,
-                sqm: 120,
-                type: "2 Bedroom",
-                image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
-                description: "Spacious 2-bedroom apartment with contemporary design. Features en-suite bathrooms, fitted kitchen with modern appliances, and balcony with city view. Located in the prestigious Bourdillon Court with 24/7 concierge service.",
-                features: ["Serviced", "Gym", "Swimming Pool", "Concierge", "Balcony", "Fitted Kitchen"],
-                agent: "Juwon Ilenaye",
-                phone: "+234 800 LUXE NG"
-            },
-            4: {
-                title: "Executive 3-Bed Flat",
-                price: "₦18M",
-                location: "Lekki Phase 1 Central",
-                beds: 3,
-                baths: 3,
-                sqm: 180,
-                type: "3 Bedroom",
-                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
-                description: "Executive 3-bedroom flat with ocean views and smart home features. Includes master bedroom with walk-in closet, home office space, and premium finishes throughout. Perfect for families or professionals working from home.",
-                features: ["Ocean View", "Smart Home", "Walk-in Closet", "Home Office", "Premium Finishes", "2 Parking Spaces"],
-                agent: "Juwon Ilenaye",
-                phone: "+234 800 LUXE NG"
-            },
-            5: {
-                title: "Luxury 4-Bed Penthouse",
-                price: "₦35M",
-                location: "Admiralty Way Waterfront",
-                beds: 4,
-                baths: 4,
-                sqm: 350,
-                type: "4 Bedroom",
-                image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
-                description: "Stunning waterfront penthouse with panoramic ocean views. Features private elevator, rooftop terrace, cinema room, and staff quarters. The epitome of luxury living in Lekki Phase 1.",
-                features: ["Penthouse", "Private Elevator", "Rooftop Terrace", "Cinema Room", "Staff Quarters", "Marina Access"],
-                agent: "Juwon Ilenaye",
-                phone: "+234 800 LUXE NG"
-            },
-            6: {
-                title: "Mansion Apartment",
-                price: "₦40M",
-                location: "Exclusive Lekki Phase 1",
-                beds: 5,
-                baths: 6,
-                sqm: 500,
-                type: "5 Bedroom",
-                image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=600&fit=crop",
-                description: "Ultra-luxury 5-bedroom mansion apartment spanning 500sqm. Features private cinema, infinity pool, smart home automation, and bespoke interior design. The most exclusive address in Lekki.",
-                features: ["Smart Home", "Private Cinema", "Infinity Pool", "Wine Cellar", "Elevator", "4 Parking Spaces"],
-                agent: "Juwon
+                        <li><i class
