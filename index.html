@@ -117,6 +117,13 @@
             transform: translateY(-5px);
             box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
         }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
     </style>
 </head>
 <body class="font-sans bg-sage-50 text-navy-900 antialiased">
@@ -485,7 +492,7 @@
         </div>
     </div>
 
-    <!-- NEIGHBORHOOD SECTION - WORKING WITH INTERACTIVE TABS -->
+    <!-- NEIGHBORHOOD SECTION - FIXED WITH WORKING TABS -->
     <section id="neighborhood" class="py-20 bg-sage-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -493,7 +500,7 @@
                 <p class="text-navy-600 text-lg max-w-2xl mx-auto">Discover the vibrant neighborhood, iconic landmarks, and world-class amenities that make Lekki Phase 1 Lagos' most desirable address.</p>
             </div>
 
-            <!-- Interactive Tabs -->
+            <!-- Interactive Tabs - FIXED -->
             <div class="flex flex-wrap justify-center gap-4 mb-12">
                 <button onclick="switchTab('landmarks')" id="tab-landmarks" class="neighborhood-tab active px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md hover:shadow-lg">
                     <i class="fas fa-landmark mr-2"></i>Landmarks
@@ -509,8 +516,8 @@
                 </button>
             </div>
 
-            <!-- Tab Content: Landmarks -->
-            <div id="content-landmarks" class="tab-content">
+            <!-- Tab Content: Landmarks - ACTIVE BY DEFAULT -->
+            <div id="content-landmarks" class="tab-content active">
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
                         <img src="https://images.unsplash.com/photo-1590674899505-1c5c4c9b7a6e?w=600&h=400&fit=crop" alt="Lekki-Ikoyi Bridge" class="w-full h-48 object-cover">
@@ -546,7 +553,7 @@
             </div>
 
             <!-- Tab Content: Dining -->
-            <div id="content-dining" class="tab-content hidden">
+            <div id="content-dining" class="tab-content">
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
                         <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop" alt="Circa Lagos" class="w-full h-48 object-cover">
@@ -582,7 +589,7 @@
             </div>
 
             <!-- Tab Content: Shopping -->
-            <div id="content-shopping" class="tab-content hidden">
+            <div id="content-shopping" class="tab-content">
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
                         <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="The Palms" class="w-full h-48 object-cover">
@@ -618,7 +625,7 @@
             </div>
 
             <!-- Tab Content: Nature -->
-            <div id="content-nature" class="tab-content hidden">
+            <div id="content-nature" class="tab-content">
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
                         <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop" alt="Elegushi Beach" class="w-full h-48 object-cover">
@@ -796,15 +803,28 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact Section - WITH JUWON ILENAYE -->
     <section id="contact" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="glass-card rounded-3xl p-8 md:p-12 shadow-2xl border border-sage-200">
                 <div class="text-center mb-8">
                     <h2 class="font-serif text-3xl font-bold text-navy-900 mb-4">Schedule a Viewing</h2>
-                    <p class="text-navy-600">Let us help you find your perfect home in Lekki Phase 1</p>
+                    <p class="text-navy-600">Get in touch with Juwon Ilenaye to find your perfect home in Lekki Phase 1</p>
                 </div>
-                <form class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you! We will contact you shortly.');">
+                
+                <!-- Contact Agent Card - JUWON ILENAYE -->
+                <div class="bg-sage-50 rounded-2xl p-6 mb-8 flex items-center gap-4">
+                    <div class="w-16 h-16 rounded-full bg-navy-900 flex items-center justify-center text-white text-2xl font-bold">
+                        JI
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-xl text-navy-900">Juwon Ilenaye</h3>
+                        <p class="text-navy-600">Senior Property Consultant</p>
+                        <p class="text-gold-600 font-semibold"><i class="fas fa-phone mr-2"></i>+234 800 LUXE NG</p>
+                    </div>
+                </div>
+
+                <form class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you! Juwon Ilenaye will contact you shortly.');">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-navy-700 mb-2">Full Name</label>
@@ -830,10 +850,10 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-navy-700 mb-2">Message</label>
-                        <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="Tell us about your requirements..."></textarea>
+                        <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="Tell Juwon about your requirements..."></textarea>
                     </div>
                     <button type="submit" class="w-full bg-navy-900 text-white py-4 rounded-xl font-bold text-lg hover:bg-gold-600 transition-all duration-300 transform hover:scale-[1.02]">
-                        Request Callback
+                        <i class="fas fa-paper-plane mr-2"></i>Send to Juwon Ilenaye
                     </button>
                 </form>
             </div>
@@ -863,9 +883,10 @@
                 <div>
                     <h4 class="font-bold mb-4 text-gold-400">Contact</h4>
                     <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><i class="fas fa-user mr-2"></i> Juwon Ilenaye</li>
                         <li><i class="fas fa-map-marker-alt mr-2"></i> Lekki Phase 1, Lagos</li>
                         <li><i class="fas fa-phone mr-2"></i> +234 800 LUXE NG</li>
-                        <li><i class="fas fa-envelope mr-2"></i> hello@lekkiluxe.ng</li>
+                        <li><i class="fas fa-envelope mr-2"></i> juwon@lekkiluxe.ng</li>
                     </ul>
                 </div>
                 <div>
@@ -878,13 +899,13 @@
                 </div>
             </div>
             <div class="border-t border-white/10 pt-8 text-center text-gray-500 text-sm">
-                <p>&copy; 2025 Lekki Luxe. All rights reserved. Prices subject to change.</p>
+                <p>&copy; 2025 Lekki Luxe. All rights reserved. Prices subject to change. Managed by Juwon Ilenaye.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Property Data
+        // Property Data with Juwon Ilenaye as agent
         const properties = {
             1: {
                 title: "Furnished Mini Flat",
@@ -897,8 +918,8 @@
                 image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
                 description: "Stylish mini flat perfect for young professionals. Features modern furnishing, 24/7 power backup, and access to swimming pool. Located in the heart of Lekki Phase 1 with easy access to restaurants and shopping centers.",
                 features: ["Fully Furnished", "24/7 Power", "Swimming Pool Access", "Security", "Parking", "Air Conditioning"],
-                agent: "John Okonkwo",
-                phone: "+234 801 234 5678"
+                agent: "Juwon Ilenaye",
+                phone: "+234 800 LUXE NG"
             },
             2: {
                 title: "Luxury Studio",
@@ -911,8 +932,8 @@
                 image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
                 description: "Compact yet luxurious studio apartment in the serene Femi Okunnu Estate. Perfect for singles or couples who appreciate minimalist living with maximum comfort. Includes access to gym and community pool.",
                 features: ["Fully Furnished", "Gym Access", "Pool", "Fiber Internet", "24/7 Security", "Housekeeping"],
-                agent: "Sarah Adeyemi",
-                phone: "+234 802 345 6789"
+                agent: "Juwon Ilenaye",
+                phone: "+234 800 LUXE NG"
             },
             3: {
                 title: "Modern 2-Bed Apartment",
@@ -925,8 +946,8 @@
                 image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
                 description: "Spacious 2-bedroom apartment with contemporary design. Features en-suite bathrooms, fitted kitchen with modern appliances, and balcony with city view. Located in the prestigious Bourdillon Court with 24/7 concierge service.",
                 features: ["Serviced", "Gym", "Swimming Pool", "Concierge", "Balcony", "Fitted Kitchen"],
-                agent: "Michael Ibrahim",
-                phone: "+234 803 456 7890"
+                agent: "Juwon Ilenaye",
+                phone: "+234 800 LUXE NG"
             },
             4: {
                 title: "Executive 3-Bed Flat",
@@ -939,8 +960,8 @@
                 image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
                 description: "Executive 3-bedroom flat with ocean views and smart home features. Includes master bedroom with walk-in closet, home office space, and premium finishes throughout. Perfect for families or professionals working from home.",
                 features: ["Ocean View", "Smart Home", "Walk-in Closet", "Home Office", "Premium Finishes", "2 Parking Spaces"],
-                agent: "Fatima Bello",
-                phone: "+234 804 567 8901"
+                agent: "Juwon Ilenaye",
+                phone: "+234 800 LUXE NG"
             },
             5: {
                 title: "Luxury 4-Bed Penthouse",
@@ -953,8 +974,8 @@
                 image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
                 description: "Stunning waterfront penthouse with panoramic ocean views. Features private elevator, rooftop terrace, cinema room, and staff quarters. The epitome of luxury living in Lekki Phase 1.",
                 features: ["Penthouse", "Private Elevator", "Rooftop Terrace", "Cinema Room", "Staff Quarters", "Marina Access"],
-                agent: "David Okafor",
-                phone: "+234 805 678 9012"
+                agent: "Juwon Ilenaye",
+                phone: "+234 800 LUXE NG"
             },
             6: {
                 title: "Mansion Apartment",
@@ -965,33 +986,4 @@
                 sqm: 500,
                 type: "5 Bedroom",
                 image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=600&fit=crop",
-                description: "Ultra-luxury 5-bedroom mansion apartment spanning 500sqm. Features private cinema, infinity pool, smart home automation, and bespoke interior design. The most exclusive address in Lekki.",
-                features: ["Smart Home", "Private Cinema", "Infinity Pool", "Wine Cellar", "Elevator", "4 Parking Spaces"],
-                agent: "Victoria Nnamdi",
-                phone: "+234 806 789 0123"
-            }
-        };
-
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const hamburger = document.getElementById('hamburger');
-            
-            menu.classList.toggle('open');
-            hamburger.classList.toggle('hamburger-active');
-        }
-
-        // Property Modal Functions
-        function openPropertyModal(propertyId) {
-            const property = properties[propertyId];
-            const modal = document.getElementById('propertyModal');
-            const content = document.getElementById('modalContent');
-            
-            content.innerHTML = `
-                <div class="relative">
-                    <img src="${property.image}" alt="${property.title}" class="w-full h-64 sm:h-96 object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                    <div class="absolute bottom-4 left-4 text-white">
-                        <span class="bg-gold-500 px-3 py-1 rounded-full text-sm font-semibold">${property.type}</span>
-                        <h2 class="text-3xl font-serif font-bold mt-2">${property.title}</h2>
-                        <p class="text-xl font-bold text-gold-400">${property.price}<span class="text-sm text-white/80">/year
+                description: "Ultra-luxury 5-bedroom mansion apartment spanning 500sqm. Features private cinema, infinity pool, smart home automation, and bespoke interior design. The most exclusive address
