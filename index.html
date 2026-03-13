@@ -74,7 +74,6 @@
             from { opacity: 0; transform: translateX(-30px); }
             to { opacity: 1; transform: translateX(0); }
         }
-        /* Modal Animation */
         .modal-enter {
             animation: modalEnter 0.3s ease-out forwards;
         }
@@ -82,7 +81,6 @@
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
-        /* Hamburger Animation */
         .hamburger-line {
             transition: all 0.3s ease-in-out;
         }
@@ -95,7 +93,6 @@
         .hamburger-active .line-3 {
             transform: rotate(-45deg) translate(5px, -5px);
         }
-        /* Mobile Menu */
         .mobile-menu {
             max-height: 0;
             overflow: hidden;
@@ -103,6 +100,22 @@
         }
         .mobile-menu.open {
             max-height: 400px;
+        }
+        .neighborhood-tab {
+            transition: all 0.3s ease;
+        }
+        .neighborhood-tab.active {
+            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(251, 191, 36, 0.4);
+        }
+        .landmark-card {
+            transition: all 0.3s ease;
+        }
+        .landmark-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
         }
     </style>
 </head>
@@ -127,7 +140,7 @@
                     </div>
                     
                     <div class="hidden md:block">
-                        <button onclick="openContactModal()" class="bg-navy-900 text-white px-6 py-2.5 rounded-full font-medium hover:bg-gold-600 transition-all duration-300 transform hover:scale-105">
+                        <button onclick="scrollToContact()" class="bg-navy-900 text-white px-6 py-2.5 rounded-full font-medium hover:bg-gold-600 transition-all duration-300 transform hover:scale-105">
                             Schedule Viewing
                         </button>
                     </div>
@@ -147,7 +160,7 @@
                         <a href="#neighborhood" onclick="toggleMobileMenu()" class="block text-navy-700 hover:text-gold-600 font-medium py-2">Neighborhood</a>
                         <a href="#amenities" onclick="toggleMobileMenu()" class="block text-navy-700 hover:text-gold-600 font-medium py-2">Amenities</a>
                         <a href="#contact" onclick="toggleMobileMenu()" class="block text-navy-700 hover:text-gold-600 font-medium py-2">Contact</a>
-                        <button onclick="openContactModal(); toggleMobileMenu();" class="w-full bg-navy-900 text-white px-6 py-3 rounded-full font-medium hover:bg-gold-600 transition-all duration-300">
+                        <button onclick="scrollToContact(); toggleMobileMenu();" class="w-full bg-navy-900 text-white px-6 py-3 rounded-full font-medium hover:bg-gold-600 transition-all duration-300">
                             Schedule Viewing
                         </button>
                     </div>
@@ -174,8 +187,8 @@
                         <button onclick="scrollToProperties()" class="bg-navy-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gold-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                             Browse Properties
                         </button>
-                        <button class="border-2 border-navy-900 text-navy-900 px-8 py-4 rounded-full font-semibold hover:bg-navy-900 hover:text-white transition-all duration-300">
-                            <i class="fas fa-play-circle mr-2"></i>Virtual Tour
+                        <button onclick="scrollToNeighborhood()" class="border-2 border-navy-900 text-navy-900 px-8 py-4 rounded-full font-semibold hover:bg-navy-900 hover:text-white transition-all duration-300">
+                            <i class="fas fa-map-marked-alt mr-2"></i>Explore Area
                         </button>
                     </div>
                     <div class="mt-12 flex items-center gap-8">
@@ -214,7 +227,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Floating Elements -->
                     <div class="absolute -top-6 -right-6 bg-white p-4 rounded-2xl shadow-xl animate-bounce">
                         <i class="fas fa-shield-alt text-gold-500 text-2xl"></i>
                     </div>
@@ -462,24 +474,210 @@
     <!-- Property Details Modal -->
     <div id="propertyModal" class="fixed inset-0 z-[60] hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <!-- Background overlay -->
             <div class="fixed inset-0 bg-navy-900/75 transition-opacity" aria-hidden="true" onclick="closePropertyModal()"></div>
-
-            <!-- Modal panel -->
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             <div class="relative inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full modal-enter">
-                
-                <!-- Close button -->
                 <button onclick="closePropertyModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center text-navy-900 transition shadow-lg">
                     <i class="fas fa-times text-xl"></i>
                 </button>
-
-                <div id="modalContent">
-                    <!-- Content injected by JavaScript -->
-                </div>
+                <div id="modalContent"></div>
             </div>
         </div>
     </div>
+
+    <!-- NEIGHBORHOOD SECTION - WORKING WITH INTERACTIVE TABS -->
+    <section id="neighborhood" class="py-20 bg-sage-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-navy-900 mb-4">Explore Lekki Phase 1</h2>
+                <p class="text-navy-600 text-lg max-w-2xl mx-auto">Discover the vibrant neighborhood, iconic landmarks, and world-class amenities that make Lekki Phase 1 Lagos' most desirable address.</p>
+            </div>
+
+            <!-- Interactive Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button onclick="switchTab('landmarks')" id="tab-landmarks" class="neighborhood-tab active px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md hover:shadow-lg">
+                    <i class="fas fa-landmark mr-2"></i>Landmarks
+                </button>
+                <button onclick="switchTab('dining')" id="tab-dining" class="neighborhood-tab px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md hover:shadow-lg">
+                    <i class="fas fa-utensils mr-2"></i>Dining & Nightlife
+                </button>
+                <button onclick="switchTab('shopping')" id="tab-shopping" class="neighborhood-tab px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md hover:shadow-lg">
+                    <i class="fas fa-shopping-bag mr-2"></i>Shopping
+                </button>
+                <button onclick="switchTab('nature')" id="tab-nature" class="neighborhood-tab px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md hover:shadow-lg">
+                    <i class="fas fa-leaf mr-2"></i>Nature & Recreation
+                </button>
+            </div>
+
+            <!-- Tab Content: Landmarks -->
+            <div id="content-landmarks" class="tab-content">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1590674899505-1c5c4c9b7a6e?w=600&h=400&fit=crop" alt="Lekki-Ikoyi Bridge" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Lekki-Ikoyi Link Bridge</h3>
+                            <p class="text-navy-600 text-sm mb-4">Nigeria's most photographed landmark. This 1.36km cable-stayed bridge connects Lekki to Ikoyi and is a popular jogging spot with stunning views.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-walking mr-2"></i> 5 mins drive
+                            </div>
+                        </div>
+                    </div>
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&h=400&fit=crop" alt="Nike Art Gallery" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Nike Art Gallery</h3>
+                            <p class="text-navy-600 text-sm mb-4">Nigeria's #1 art destination on TripAdvisor. This 4-story gallery features over 7,000 pieces of traditional and contemporary Nigerian art.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-palette mr-2"></i> 8 mins drive
+                            </div>
+                        </div>
+                    </div>
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?w=600&h=400&fit=crop" alt="Lekki Conservation Centre" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Lekki Conservation Centre</h3>
+                            <p class="text-navy-600 text-sm mb-4">Home to Africa's longest canopy walkway (401m). Experience nature with 360-degree views from 22ft high towers in this urban oasis.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-tree mr-2"></i> 10 mins drive
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Dining -->
+            <div id="content-dining" class="tab-content hidden">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop" alt="Circa Lagos" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Circa Lagos</h3>
+                            <p class="text-navy-600 text-sm mb-4">Upscale waterfront dining with panoramic ocean views. Perfect for romantic dinners and business meetings.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-utensils mr-2"></i> Fine Dining
+                            </div>
+                        </div>
+                    </div>
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&h=400&fit=crop" alt="Bay Lounge" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Bay Lounge</h3>
+                            <p class="text-navy-600 text-sm mb-4">Trendy beachfront lounge offering fresh seafood, cocktails, and live music with cool ocean breeze.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-cocktail mr-2"></i> Beach Lounge
+                            </div>
+                        </div>
+                    </div>
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1560624052-449f5ddf0c31?w=600&h=400&fit=crop" alt="Club Quilox" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Club Quilox</h3>
+                            <p class="text-navy-600 text-sm mb-4">Lagos' most famous nightlife destination. High-energy club with international DJs and celebrity sightings.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-music mr-2"></i> Nightlife
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Shopping -->
+            <div id="content-shopping" class="tab-content hidden">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="The Palms" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">The Palms Shopping Mall</h3>
+                            <p class="text-navy-600 text-sm mb-4">Lekki's premier shopping destination with 69 stores, modern 6-screen cinema, and ample parking for 1000+ cars.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-shopping-cart mr-2"></i> 5 mins drive
+                            </div>
+                        </div>
+                    </div>
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop" alt="Lekki Arts Market" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Lekki Arts & Crafts Market</h3>
+                            <p class="text-navy-600 text-sm mb-4">Vibrant open-air market featuring traditional Nigerian art, wood carvings, textiles, beadwork, and antiques from the 1930s.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-gift mr-2"></i> 7 mins drive
+                            </div>
+                        </div>
+                    </div>
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&h=400&fit=crop" alt="Circle Mall" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Circle Mall</h3>
+                            <p class="text-navy-600 text-sm mb-4">Modern shopping complex with electronics, fashion boutiques, grocery stores, and casual dining options.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-store mr-2"></i> 3 mins drive
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Nature -->
+            <div id="content-nature" class="tab-content hidden">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop" alt="Elegushi Beach" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Elegushi Royal Beach</h3>
+                            <p class="text-navy-600 text-sm mb-4">Private beach with horse riding, beach volleyball, and fresh seafood grills. Perfect for weekend getaways.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-umbrella-beach mr-2"></i> 12 mins drive
+                            </div>
+                        </div>
+                    </div>
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&h=400&fit=crop" alt="Landmark Beach" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Landmark Beach</h3>
+                            <p class="text-navy-600 text-sm mb-4">Pristine beach with water sports, beachfront dining, and the iconic Landmark Event Centre for concerts.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-water mr-2"></i> 8 mins drive
+                            </div>
+                        </div>
+                    </div>
+                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop" alt="Upbeat Centre" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="font-bold text-xl text-navy-900 mb-2">Upbeat Centre</h3>
+                            <p class="text-navy-600 text-sm mb-4">West Africa's largest trampoline park and recreation center. Perfect for families and fitness enthusiasts.</p>
+                            <div class="flex items-center text-gold-600 text-sm font-semibold">
+                                <i class="fas fa-running mr-2"></i> 15 mins drive
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="mt-16 grid md:grid-cols-4 gap-6">
+                <div class="bg-white rounded-2xl p-6 text-center shadow-lg">
+                    <i class="fas fa-road text-gold-500 text-3xl mb-3"></i>
+                    <h4 class="font-bold text-navy-900 text-lg">Admiralty Way</h4>
+                    <p class="text-navy-600 text-sm">Commercial heart with restaurants & offices</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center shadow-lg">
+                    <i class="fas fa-home text-gold-500 text-3xl mb-3"></i>
+                    <h4 class="font-bold text-navy-900 text-lg">Freedom Way</h4>
+                    <p class="text-navy-600 text-sm">Residential hub with estates & lagoon views</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center shadow-lg">
+                    <i class="fas fa-graduation-cap text-gold-500 text-3xl mb-3"></i>
+                    <h4 class="font-bold text-navy-900 text-lg">Top Schools</h4>
+                    <p class="text-navy-600 text-sm">British Int'l, American Int'l, Greensprings</p>
+                </div>
+                <div class="bg-white rounded-2xl p-6 text-center shadow-lg">
+                    <i class="fas fa-hospital text-gold-500 text-3xl mb-3"></i>
+                    <h4 class="font-bold text-navy-900 text-lg">Healthcare</h4>
+                    <p class="text-navy-600 text-sm">Evercare, Lagoon Hospitals, Chevron Clinic</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Price Range Section -->
     <section class="py-20 bg-navy-900 text-white">
@@ -656,10 +854,10 @@
                 <div>
                     <h4 class="font-bold mb-4 text-gold-400">Quick Links</h4>
                     <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition">Properties</a></li>
-                        <li><a href="#" class="hover:text-white transition">Neighborhood Guide</a></li>
-                        <li><a href="#" class="hover:text-white transition">Pricing</a></li>
-                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                        <li><a href="#properties" class="hover:text-white transition">Properties</a></li>
+                        <li><a href="#neighborhood" class="hover:text-white transition">Neighborhood Guide</a></li>
+                        <li><a href="#amenities" class="hover:text-white transition">Amenities</a></li>
+                        <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
                     </ul>
                 </div>
                 <div>
@@ -796,123 +994,4 @@
                     <div class="absolute bottom-4 left-4 text-white">
                         <span class="bg-gold-500 px-3 py-1 rounded-full text-sm font-semibold">${property.type}</span>
                         <h2 class="text-3xl font-serif font-bold mt-2">${property.title}</h2>
-                        <p class="text-xl font-bold text-gold-400">${property.price}<span class="text-sm text-white/80">/year</span></p>
-                    </div>
-                </div>
-                
-                <div class="p-6 sm:p-8">
-                    <div class="flex items-center text-navy-600 mb-6">
-                        <i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>
-                        <span>${property.location}</span>
-                    </div>
-                    
-                    <div class="grid grid-cols-3 gap-4 mb-6 border-y border-sage-200 py-4">
-                        <div class="text-center">
-                            <i class="fas fa-bed text-gold-500 text-xl mb-1"></i>
-                            <p class="font-bold text-navy-900">${property.beds}</p>
-                            <p class="text-xs text-navy-600">Bedrooms</p>
-                        </div>
-                        <div class="text-center border-x border-sage-200">
-                            <i class="fas fa-bath text-gold-500 text-xl mb-1"></i>
-                            <p class="font-bold text-navy-900">${property.baths}</p>
-                            <p class="text-xs text-navy-600">Bathrooms</p>
-                        </div>
-                        <div class="text-center">
-                            <i class="fas fa-ruler-combined text-gold-500 text-xl mb-1"></i>
-                            <p class="font-bold text-navy-900">${property.sqm}m²</p>
-                            <p class="text-xs text-navy-600">Area</p>
-                        </div>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h3 class="font-bold text-navy-900 text-lg mb-3">Description</h3>
-                        <p class="text-navy-600 leading-relaxed">${property.description}</p>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h3 class="font-bold text-navy-900 text-lg mb-3">Features</h3>
-                        <div class="flex flex-wrap gap-2">
-                            ${property.features.map(f => `<span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-sm">${f}</span>`).join('')}
-                        </div>
-                    </div>
-                    
-                    <div class="bg-sage-50 rounded-2xl p-4 mb-6">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center">
-                                <i class="fas fa-user text-gold-600"></i>
-                            </div>
-                            <div>
-                                <p class="font-bold text-navy-900">${property.agent}</p>
-                                <p class="text-sm text-navy-600">Property Agent</p>
-                            </div>
-                            <a href="tel:${property.phone}" class="ml-auto bg-gold-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-gold-600 transition">
-                                <i class="fas fa-phone mr-2"></i>Call
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="flex gap-4">
-                        <button onclick="closePropertyModal(); openContactModal();" class="flex-1 bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300">
-                            Schedule Viewing
-                        </button>
-                        <button onclick="closePropertyModal()" class="flex-1 border-2 border-navy-900 text-navy-900 py-3 rounded-xl font-semibold hover:bg-navy-900 hover:text-white transition-all duration-300">
-                            Close
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closePropertyModal() {
-            const modal = document.getElementById('propertyModal');
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        function openContactModal() {
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Close modal on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closePropertyModal();
-            }
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-lg');
-            } else {
-                navbar.classList.remove('shadow-lg');
-            }
-        });
-
-        // Smooth scroll
-        function scrollToProperties() {
-            document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('fade-in');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.property-card').forEach((el) => observer.observe(el));
-    </script>
-</body>
-</html>
+                        <p class="text-xl font-bold text-gold-400">${property.price}<span class="text-sm text-white/80">/year
