@@ -194,6 +194,22 @@
                             <i class="fas fa-map-marked-alt mr-2"></i>Explore Area
                         </button>
                     </div>
+                    <div class="mt-12 flex items-center gap-8">
+                        <div>
+                            <p class="text-3xl font-bold text-navy-900">₦12.3M</p>
+                            <p class="text-sm text-navy-600">Average Rent/Year</p>
+                        </div>
+                        <div class="h-12 w-px bg-navy-200"></div>
+                        <div>
+                            <p class="text-3xl font-bold text-navy-900">50+</p>
+                            <p class="text-sm text-navy-600">Premium Units</p>
+                        </div>
+                        <div class="h-12 w-px bg-navy-200"></div>
+                        <div>
+                            <p class="text-3xl font-bold text-navy-900">24/7</p>
+                            <p class="text-sm text-navy-600">Power & Security</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="relative slide-in">
                     <div class="relative rounded-3xl overflow-hidden shadow-2xl">
@@ -219,40 +235,143 @@
         </div>
     </section>
 
+    <section class="py-8 -mt-10 relative z-20">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="glass-card rounded-3xl p-6 shadow-xl">
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="relative">
+                        <label class="block text-sm font-medium text-navy-700 mb-2">Property Type</label>
+                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none bg-white">
+                            <option>All Types</option>
+                            <option>Mini Flat</option>
+                            <option>2 Bedroom</option>
+                            <option>3 Bedroom</option>
+                            <option>4+ Bedroom</option>
+                        </select>
+                    </div>
+                    <div class="relative">
+                        <label class="block text-sm font-medium text-navy-700 mb-2">Price Range</label>
+                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none bg-white">
+                            <option>Any Price</option>
+                            <option>₦1M - ₦5M</option>
+                            <option>₦5M - ₦15M</option>
+                            <option>₦15M - ₦30M</option>
+                            <option>₦30M+</option>
+                        </select>
+                    </div>
+                    <div class="relative">
+                        <label class="block text-sm font-medium text-navy-700 mb-2">Location</label>
+                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 outline-none bg-white">
+                            <option>Lekki Phase 1</option>
+                            <option>Admiralty Way</option>
+                            <option>Femi Okunnu Estate</option>
+                            <option>Bourdillon Court</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button class="w-full bg-gold-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gold-600 transition flex items-center justify-center gap-2">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="properties" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="font-serif text-4xl md:text-5xl font-bold text-navy-900 mb-4">Available Properties</h2>
+                <p class="text-navy-600 text-lg max-w-2xl mx-auto">Curated selection of premium apartments in Lekki Phase 1.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
                     <div class="relative h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=400&fit=crop" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-gold-500 text-white px-3 py-1 rounded-full text-sm">Mini Flat</div>
                     </div>
                     <div class="p-6">
-                        <h3 class="font-serif text-xl font-bold text-navy-900">Furnished Mini Flat</h3>
-                        <p class="text-gold-600 font-bold mb-4">₦9M/yr</p>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl font-bold text-navy-900">Furnished Mini Flat</h3>
+                            <span class="text-gold-600 font-bold">₦9M/yr</span>
+                        </div>
+                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Admiralty Way</p>
                         <button onclick="openPropertyModal(1)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition">View Details</button>
                     </div>
                 </div>
+
+                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=400&fit=crop" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-navy-900 text-white px-3 py-1 rounded-full text-sm">Studio</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl font-bold text-navy-900">Luxury Studio</h3>
+                            <span class="text-gold-600 font-bold">₦5.5M/yr</span>
+                        </div>
+                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Femi Okunnu Estate</p>
+                        <button onclick="openPropertyModal(2)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition">View Details</button>
+                    </div>
+                </div>
+
                 <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
                     <div class="relative h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm">2 Bedroom</div>
                     </div>
                     <div class="p-6">
-                        <h3 class="font-serif text-xl font-bold text-navy-900">Modern 2-Bed Apartment</h3>
-                        <p class="text-gold-600 font-bold mb-4">₦12M/yr</p>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl font-bold text-navy-900">Modern 2-Bed</h3>
+                            <span class="text-gold-600 font-bold">₦12M/yr</span>
+                        </div>
+                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Bourdillon Court</p>
                         <button onclick="openPropertyModal(3)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition">View Details</button>
                     </div>
                 </div>
+
+                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm">3 Bedroom</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl font-bold text-navy-900">Executive 3-Bed</h3>
+                            <span class="text-gold-600 font-bold">₦18M/yr</span>
+                        </div>
+                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Lekki Central</p>
+                        <button onclick="openPropertyModal(4)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition">View Details</button>
+                    </div>
+                </div>
+
+                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm">4 Bedroom</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl font-bold text-navy-900">Luxury Penthouse</h3>
+                            <span class="text-gold-600 font-bold">₦35M/yr</span>
+                        </div>
+                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Waterfront</p>
+                        <button onclick="openPropertyModal(5)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition">View Details</button>
+                    </div>
+                </div>
+
                 <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
                     <div class="relative h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&h=400&fit=crop" class="w-full h-full object-cover">
+                        <div class="absolute top-4 left-4 bg-navy-900 text-white px-3 py-1 rounded-full text-sm">5 Bedroom</div>
                     </div>
                     <div class="p-6">
-                        <h3 class="font-serif text-xl font-bold text-navy-900">Mansion Apartment</h3>
-                        <p class="text-gold-600 font-bold mb-4">₦40M/yr</p>
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-serif text-xl font-bold text-navy-900">Mansion Apartment</h3>
+                            <span class="text-gold-600 font-bold">₦40M/yr</span>
+                        </div>
+                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Exclusive Lekki</p>
                         <button onclick="openPropertyModal(6)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition">View Details</button>
                     </div>
                 </div>
@@ -267,33 +386,85 @@
             </div>
 
             <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <button onclick="switchTab('landmarks')" id="tab-landmarks" class="neighborhood-tab active px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md">Landmarks</button>
-                <button onclick="switchTab('dining')" id="tab-dining" class="neighborhood-tab px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md">Dining</button>
-                <button onclick="switchTab('shopping')" id="tab-shopping" class="neighborhood-tab px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md">Shopping</button>
+                <button onclick="switchTab('landmarks')" id="tab-landmarks" class="neighborhood-tab active px-6 py-3 rounded-full font-semibold bg-white shadow-md">Landmarks</button>
+                <button onclick="switchTab('dining')" id="tab-dining" class="neighborhood-tab px-6 py-3 rounded-full font-semibold bg-white shadow-md">Dining</button>
+                <button onclick="switchTab('shopping')" id="tab-shopping" class="neighborhood-tab px-6 py-3 rounded-full font-semibold bg-white shadow-md">Shopping</button>
+                <button onclick="switchTab('nature')" id="tab-nature" class="neighborhood-tab px-6 py-3 rounded-full font-semibold bg-white shadow-md">Nature</button>
             </div>
 
             <div id="content-landmarks" class="tab-content active">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid md:grid-cols-3 gap-6">
                     <div class="bg-white p-6 rounded-2xl shadow">
-                        <h3 class="font-bold text-xl">Lekki-Ikoyi Link Bridge</h3>
-                        <p class="text-gray-600 mt-2">Nigeria's most photographed landmark.</p>
+                        <h3 class="font-bold text-xl mb-2">Lekki-Ikoyi Link Bridge</h3>
+                        <p class="text-navy-600 text-sm">Iconic cable-stayed bridge and popular jogging spot.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow">
+                        <h3 class="font-bold text-xl mb-2">Nike Art Gallery</h3>
+                        <p class="text-navy-600 text-sm">Nigeria's premier destination for traditional and modern art.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow">
+                        <h3 class="font-bold text-xl mb-2">Conservation Centre</h3>
+                        <p class="text-navy-600 text-sm">Home to Africa's longest canopy walkway.</p>
                     </div>
                 </div>
             </div>
             <div id="content-dining" class="tab-content">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid md:grid-cols-2 gap-6">
                     <div class="bg-white p-6 rounded-2xl shadow">
-                        <h3 class="font-bold text-xl">Circa Lagos</h3>
-                        <p class="text-gray-600 mt-2">Upscale waterfront dining.</p>
+                        <h3 class="font-bold text-xl mb-2">Circa Lagos</h3>
+                        <p class="text-navy-600 text-sm">Upscale dining with waterfront views.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow">
+                        <h3 class="font-bold text-xl mb-2">Bay Lounge</h3>
+                        <p class="text-navy-600 text-sm">Trendy lounge with live music and ocean breezes.</p>
                     </div>
                 </div>
             </div>
             <div id="content-shopping" class="tab-content">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="grid md:grid-cols-2 gap-6">
                     <div class="bg-white p-6 rounded-2xl shadow">
-                        <h3 class="font-bold text-xl">The Palms Mall</h3>
-                        <p class="text-gray-600 mt-2">Premier shopping destination.</p>
+                        <h3 class="font-bold text-xl mb-2">The Palms Mall</h3>
+                        <p class="text-navy-600 text-sm">Lekki's premier shopping and cinema complex.</p>
                     </div>
+                    <div class="bg-white p-6 rounded-2xl shadow">
+                        <h3 class="font-bold text-xl mb-2">Circle Mall</h3>
+                        <p class="text-navy-600 text-sm">Convenient shopping hub with diverse retail stores.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="content-nature" class="tab-content">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow">
+                        <h3 class="font-bold text-xl mb-2">Elegushi Beach</h3>
+                        <p class="text-navy-600 text-sm">Private beach perfect for weekend leisure.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow">
+                        <h3 class="font-bold text-xl mb-2">Landmark Beach</h3>
+                        <p class="text-navy-600 text-sm">Pristine shoreline with active water sports.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-navy-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h2 class="font-serif text-4xl font-bold mb-16">2025 Rental Price Guide</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white/10 p-8 rounded-3xl border border-white/20">
+                    <h3 class="text-2xl font-bold mb-4">Entry Level</h3>
+                    <p class="text-3xl font-bold text-gold-400">₦1.5M - ₦9M</p>
+                    <p class="mt-4 text-gray-300">Mini Flats & Studios</p>
+                </div>
+                <div class="bg-gold-500 p-8 rounded-3xl transform scale-105 shadow-2xl">
+                    <h3 class="text-2xl font-bold mb-4">Mid Range</h3>
+                    <p class="text-3xl font-bold">₦9M - ₦20M</p>
+                    <p class="mt-4">2-3 Bedroom Serviced Flats</p>
+                </div>
+                <div class="bg-white/10 p-8 rounded-3xl border border-white/20">
+                    <h3 class="text-2xl font-bold mb-4">Luxury</h3>
+                    <p class="text-3xl font-bold text-gold-400">₦20M - ₦50M+</p>
+                    <p class="mt-4 text-gray-300">Penthouses & Smart Homes</p>
                 </div>
             </div>
         </div>
@@ -301,12 +472,21 @@
 
     <section id="contact" class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4">
-            <div class="glass-card rounded-3xl p-8 shadow-2xl">
-                <h2 class="font-serif text-3xl font-bold text-center mb-8">Schedule a Viewing</h2>
-                <form class="space-y-4" onsubmit="event.preventDefault(); alert('Request Sent!');">
-                    <input type="text" class="w-full px-4 py-3 border rounded-xl" placeholder="Full Name" required>
-                    <input type="email" class="w-full px-4 py-3 border rounded-xl" placeholder="Email" required>
-                    <button type="submit" class="w-full bg-navy-900 text-white py-4 rounded-xl font-bold">Submit Request</button>
+            <div class="glass-card rounded-3xl p-8 shadow-2xl border border-sage-200">
+                <div class="text-center mb-8">
+                    <h2 class="font-serif text-3xl font-bold text-navy-900 mb-2">Schedule a Viewing</h2>
+                    <p class="text-navy-600">Contact Juwon Ilenaye: 08143002152</p>
+                </div>
+                <form class="space-y-6" onsubmit="event.preventDefault(); alert('Juwon Ilenaye will contact you at 08143002152 shortly.');">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <input type="text" placeholder="Full Name" class="w-full px-4 py-3 border rounded-xl outline-none" required>
+                        <input type="tel" placeholder="08143002152" class="w-full px-4 py-3 border rounded-xl outline-none" required>
+                    </div>
+                    <input type="email" placeholder="playerd645@gmail.com" class="w-full px-4 py-3 border rounded-xl outline-none" required>
+                    <textarea rows="4" placeholder="Your requirements..." class="w-full px-4 py-3 border rounded-xl outline-none"></textarea>
+                    <button type="submit" class="w-full bg-navy-900 text-white py-4 rounded-xl font-bold text-lg hover:bg-gold-600 transition-all duration-300">
+                        Send to Juwon Ilenaye
+                    </button>
                 </form>
             </div>
         </div>
@@ -316,35 +496,21 @@
         <div class="flex items-center justify-center min-h-screen p-4">
             <div class="fixed inset-0 bg-navy-900/75" onclick="closePropertyModal()"></div>
             <div class="relative bg-white rounded-3xl max-w-3xl w-full overflow-hidden shadow-xl modal-enter">
-                <button onclick="closePropertyModal()" class="absolute top-4 right-4 z-10 bg-white rounded-full p-2"><i class="fas fa-times"></i></button>
+                <button onclick="closePropertyModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow"><i class="fas fa-times"></i></button>
                 <div id="modalContent"></div>
             </div>
         </div>
     </div>
 
     <script>
-        const propertyData = {
-            1: { title: "Furnished Mini Flat", price: "₦9M/yr", image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800", beds: 1, baths: 1, description: "Stylish mini flat with 24/7 power." },
-            3: { title: "Modern 2-Bed Apartment", price: "₦12M/yr", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800", beds: 2, baths: 2, description: "Spacious apartment in a serviced estate." },
-            6: { title: "Mansion Apartment", price: "₦40M/yr", image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800", beds: 5, baths: 6, description: "Ultimate luxury with smart home features." }
-        };
-
         function toggleMobileMenu() {
             document.getElementById('mobileMenu').classList.toggle('open');
             document.getElementById('hamburger').classList.toggle('hamburger-active');
         }
 
-        function scrollToContact() {
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function scrollToProperties() {
-            document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function scrollToNeighborhood() {
-            document.getElementById('neighborhood').scrollIntoView({ behavior: 'smooth' });
-        }
+        function scrollToContact() { document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); }
+        function scrollToProperties() { document.getElementById('properties').scrollIntoView({ behavior: 'smooth' }); }
+        function scrollToNeighborhood() { document.getElementById('neighborhood').scrollIntoView({ behavior: 'smooth' }); }
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
@@ -352,6 +518,15 @@
             document.getElementById('content-' + tabName).classList.add('active');
             document.getElementById('tab-' + tabName).classList.add('active');
         }
+
+        const propertyData = {
+            1: { title: "Furnished Mini Flat", price: "₦9M/yr", location: "Admiralty Way", image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800", beds: 1, baths: 1, description: "Modern furnishing with 24/7 power." },
+            2: { title: "Luxury Studio", price: "₦5.5M/yr", location: "Femi Okunnu Estate", image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800", beds: "Studio", baths: 1, description: "Compact luxury near amenities." },
+            3: { title: "Modern 2-Bed", price: "₦12M/yr", location: "Bourdillon Court", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800", beds: 2, baths: 2, description: "Spacious and fully serviced." },
+            4: { title: "Executive 3-Bed", price: "₦18M/yr", location: "Lekki Central", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800", beds: 3, baths: 3, description: "Waterfront views and smart features." },
+            5: { title: "Luxury Penthouse", price: "₦35M/yr", location: "Waterfront", image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800", beds: 4, baths: 4, description: "Private elevator and panoramic views." },
+            6: { title: "Mansion Apartment", price: "₦40M/yr", location: "Exclusive Lekki", image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800", beds: 5, baths: 6, description: "The pinnacle of Lekki luxury." }
+        };
 
         function openPropertyModal(id) {
             const p = propertyData[id];
@@ -361,10 +536,10 @@
                 <div class="p-8">
                     <h3 class="text-3xl font-serif font-bold text-navy-900">${p.title}</h3>
                     <p class="text-gold-600 font-bold text-xl mt-2">${p.price}</p>
-                    <p class="text-gray-600 mt-4">${p.description}</p>
+                    <p class="text-navy-600 mt-4">${p.description}</p>
                     <div class="flex gap-4 mt-6 text-navy-700">
-                        <span><i class="fas fa-bed mr-2"></i>${p.beds} Beds</span>
-                        <span><i class="fas fa-bath mr-2"></i>${p.baths} Baths</span>
+                        <span><i class="fas fa-bed mr-2"></i>${p.beds}</span>
+                        <span><i class="fas fa-bath mr-2"></i>${p.baths}</span>
                     </div>
                     <button onclick="closePropertyModal(); scrollToContact();" class="w-full mt-8 bg-navy-900 text-white py-4 rounded-xl font-bold">Inquire Now</button>
                 </div>`;
