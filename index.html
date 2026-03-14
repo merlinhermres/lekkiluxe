@@ -135,7 +135,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-20">
                     <!-- LOGO NOW CLICKABLE - Links to homepage -->
-                    <a href="#" class="flex items-center space-x-2 hover:opacity-80 transition cursor-pointer">
+                    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="flex items-center space-x-2 hover:opacity-80 transition cursor-pointer">
                         <i class="fas fa-building text-gold-500 text-2xl"></i>
                         <span class="font-serif text-2xl font-bold text-navy-900">Lekki<span class="text-gold-500">Luxe</span></span>
                     </a>
@@ -257,35 +257,35 @@
                 <div class="grid md:grid-cols-4 gap-4">
                     <div class="relative">
                         <label class="block text-sm font-medium text-navy-700 mb-2">Property Type</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none bg-white">
-                            <option>All Types</option>
-                            <option>Mini Flat</option>
-                            <option>2 Bedroom</option>
-                            <option>3 Bedroom</option>
-                            <option>4+ Bedroom</option>
+                        <select id="filterType" onchange="filterProperties()" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none bg-white">
+                            <option value="all">All Types</option>
+                            <option value="mini">Mini Flat</option>
+                            <option value="2bed">2 Bedroom</option>
+                            <option value="3bed">3 Bedroom</option>
+                            <option value="4bed">4+ Bedroom</option>
                         </select>
                     </div>
                     <div class="relative">
                         <label class="block text-sm font-medium text-navy-700 mb-2">Price Range</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none bg-white">
-                            <option>Any Price</option>
-                            <option>₦1M - ₦5M</option>
-                            <option>₦5M - ₦15M</option>
-                            <option>₦15M - ₦30M</option>
-                            <option>₦30M+</option>
+                        <select id="filterPrice" onchange="filterProperties()" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none bg-white">
+                            <option value="all">Any Price</option>
+                            <option value="1-5">₦1M - ₦5M</option>
+                            <option value="5-15">₦5M - ₦15M</option>
+                            <option value="15-30">₦15M - ₦30M</option>
+                            <option value="30+">₦30M+</option>
                         </select>
                     </div>
                     <div class="relative">
                         <label class="block text-sm font-medium text-navy-700 mb-2">Location</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none bg-white">
-                            <option>Lekki Phase 1</option>
-                            <option>Admiralty Way</option>
-                            <option>Femi Okunnu Estate</option>
-                            <option>Bourdillon Court</option>
+                        <select id="filterLocation" onchange="filterProperties()" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none bg-white">
+                            <option value="all">All Locations</option>
+                            <option value="admiralty">Admiralty Way</option>
+                            <option value="femi">Femi Okunnu Estate</option>
+                            <option value="bourdillon">Bourdillon Court</option>
                         </select>
                     </div>
                     <div class="flex items-end">
-                        <button class="w-full bg-gold-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300 flex items-center justify-center gap-2">
+                        <button onclick="filterProperties()" class="w-full bg-gold-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300 flex items-center justify-center gap-2">
                             <i class="fas fa-search"></i> Search
                         </button>
                     </div>
@@ -302,9 +302,9 @@
                 <p class="text-navy-600 text-lg max-w-2xl mx-auto">Curated selection of premium apartments in Lekki Phase 1, featuring modern amenities and prime locations.</p>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="propertiesGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Property 1 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
+                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100" data-type="mini" data-price="9" data-location="admiralty">
                     <div class="relative h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=400&fit=crop" alt="Mini Flat" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                         <div class="absolute top-4 left-4 bg-gold-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Mini Flat</div>
@@ -332,7 +332,7 @@
                 </div>
 
                 <!-- Property 2 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
+                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100" data-type="mini" data-price="5.5" data-location="femi">
                     <div class="relative h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=400&fit=crop" alt="Studio Apartment" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                         <div class="absolute top-4 left-4 bg-navy-900 text-white px-3 py-1 rounded-full text-sm font-semibold">Studio</div>
@@ -360,7 +360,7 @@
                 </div>
 
                 <!-- Property 3 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
+                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100" data-type="2bed" data-price="12" data-location="bourdillon">
                     <div class="relative h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop" alt="2 Bedroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                         <div class="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">2 Bedroom</div>
@@ -388,7 +388,7 @@
                 </div>
 
                 <!-- Property 4 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
+                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100" data-type="3bed" data-price="18" data-location="admiralty">
                     <div class="relative h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop" alt="3 Bedroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                         <div class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">3 Bedroom</div>
@@ -416,7 +416,7 @@
                 </div>
 
                 <!-- Property 5 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
+                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100" data-type="4bed" data-price="35" data-location="admiralty">
                     <div class="relative h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop" alt="4 Bedroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                         <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">4 Bedroom</div>
@@ -444,7 +444,7 @@
                 </div>
 
                 <!-- Property 6 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
+                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100" data-type="4bed" data-price="40" data-location="femi">
                     <div class="relative h-64 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&h=400&fit=crop" alt="5 Bedroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
                         <div class="absolute top-4 left-4 bg-navy-900 text-white px-3 py-1 rounded-full text-sm font-semibold">5 Bedroom</div>
@@ -472,8 +472,14 @@
                 </div>
             </div>
 
+            <div id="noResults" class="hidden text-center py-12">
+                <i class="fas fa-search text-6xl text-sage-300 mb-4"></i>
+                <p class="text-navy-600 text-lg">No properties match your criteria. Try adjusting your filters.</p>
+                <button onclick="resetFilters()" class="mt-4 text-gold-600 font-semibold hover:underline">Reset Filters</button>
+            </div>
+
             <div class="text-center mt-12">
-                <button class="border-2 border-navy-900 text-navy-900 px-8 py-3 rounded-full font-semibold hover:bg-navy-900 hover:text-white transition-all duration-300">
+                <button onclick="scrollToContact()" class="border-2 border-navy-900 text-navy-900 px-8 py-3 rounded-full font-semibold hover:bg-navy-900 hover:text-white transition-all duration-300">
                     View All Properties
                 </button>
             </div>
@@ -826,24 +832,24 @@
                     </div>
                 </div>
 
-                <form class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you! Juwon Ilenaye will contact you shortly at 08143002152');">
+                <form id="contactForm" class="space-y-6" onsubmit="handleContactSubmit(event)">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-navy-700 mb-2">Full Name</label>
-                            <input type="text" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="Your Name" required>
+                            <input type="text" id="contactName" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="Your Name" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-navy-700 mb-2">Phone Number</label>
-                            <input type="tel" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="08143002152" required>
+                            <input type="tel" id="contactPhone" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="Your Phone Number" required>
                         </div>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-navy-700 mb-2">Email</label>
-                        <input type="email" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="playerd645@gmail.com" required>
+                        <input type="email" id="contactEmail" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="Your Email" required>
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-navy-700 mb-2">Preferred Property Type</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition">
+                        <select id="contactProperty" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition">
                             <option>Mini Flat (₦1.5M - ₦9M)</option>
                             <option>2 Bedroom (₦8M - ₦15M)</option>
                             <option>3 Bedroom (₦12M - ₦25M)</option>
@@ -852,7 +858,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-navy-700 mb-2">Message</label>
-                        <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="Tell Juwon about your requirements..."></textarea>
+                        <textarea id="contactMessage" rows="4" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="Tell Juwon about your requirements..."></textarea>
                     </div>
                     <button type="submit" class="w-full bg-navy-900 text-white py-4 rounded-xl font-bold text-lg hover:bg-gold-600 transition-all duration-300 transform hover:scale-[1.02]">
                         <i class="fas fa-paper-plane mr-2"></i>Send to Juwon Ilenaye
@@ -930,26 +936,59 @@
 
         // Tab Switching for Neighborhood Section
         function switchTab(tabName) {
+            // Hide all tab contents
             const allContents = document.querySelectorAll('.tab-content');
             allContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
             const allTabs = document.querySelectorAll('.neighborhood-tab');
             allTabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected content and activate tab
             document.getElementById('content-' + tabName).classList.add('active');
             document.getElementById('tab-' + tabName).classList.add('active');
         }
 
-        // Property Modal Functions
+        // Property Data for Modal
         const propertyData = {
-            1: { title: "Furnished Mini Flat", price: "₦9M/yr", location: "Admiralty Way, Lekki Phase 1", image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop", beds: 1, baths: 1, sqm: 45, description: "Stylish mini flat with modern furnishings, 24/7 power, and premium security. Perfect for young professionals.", features: ["Fully Furnished", "24/7 Power", "Security", "Air Conditioning", "Water Heater"] },
-            2: { title: "Luxury Studio", price: "₦5.5M/yr", location: "Femi Okunnu Estate", image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop", beds: "Studio", baths: 1, sqm: 35, description: "Compact luxury living with access to swimming pool and gym facilities.", features: ["Fully Furnished", "Pool Access", "Gym", "Parking", "Internet Ready"] },
-            3: { title: "Modern 2-Bed Apartment", price: "₦12M/yr", location: "Bourdillon Court, Lekki", image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop", beds: 2, baths: 2, sqm: 120, description: "Spacious 2-bedroom with modern finishes, serviced estate, and excellent road network.", features: ["Serviced Estate", "Gym", "24/7 Power", "Security", "Parking"] },
-            4: { title: "Executive 3-Bed Flat", price: "₦18M/yr", location: "Lekki Phase 1 Central", image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop", beds: 3, baths: 3, sqm: 180, description: "Executive apartment with ocean views, smart home features, and premium finishes.", features: ["Ocean View", "Smart Home", "Swimming Pool", "Gym", "CCTV"] },
-            5: { title: "Luxury 4-Bed Penthouse", price: "₦35M/yr", location: "Admiralty Way Waterfront", image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop", beds: 4, baths: 4, sqm: 350, description: "Stunning penthouse with private elevator, panoramic views, and luxury amenities.", features: ["Private Elevator", "Panoramic View", "Swimming Pool", "Smart Home", "Concierge"] },
-            6: { title: "Mansion Apartment", price: "₦40M/yr", location: "Exclusive Lekki Phase 1", image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=600&fit=crop", beds: 5, baths: 6, sqm: 500, description: "Ultimate luxury living with private cinema, pool, and smart home automation.", features: ["Private Cinema", "Swimming Pool", "Smart Home", "6 Bathrooms", "Garden"] }
-        };
-
-        function openPropertyModal(id) {
-            const p = propertyData[id];
-            if (!p) return;
-            document.getElementById('modalContent').innerHTML = `
-                <div class="relative h-64 sm:h-80"><img src="${p.image}" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-navy-900/80 to-transparent"></div><div class="absolute bottom-6 left-6 text-white"><h3 class="font-serif text-3xl font-bold mb-2">${p.title}</h3><p class="text-gold-400 text-xl
+            1: { 
+                title: "Furnished Mini Flat", 
+                price: "₦9M/yr", 
+                location: "Admiralty Way, Lekki Phase 1", 
+                image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop", 
+                beds: 1, 
+                baths: 1, 
+                sqm: 45, 
+                description: "Stylish mini flat with modern furnishings, 24/7 power, and premium security. Perfect for young professionals.", 
+                features: ["Fully Furnished", "24/7 Power", "Security", "Air Conditioning", "Water Heater"] 
+            },
+            2: { 
+                title: "Luxury Studio", 
+                price: "₦5.5M/yr", 
+                location: "Femi Okunnu Estate", 
+                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop", 
+                beds: "Studio", 
+                baths: 1, 
+                sqm: 35, 
+                description: "Compact luxury living with access to swimming pool and gym facilities. Ideal for singles or couples.", 
+                features: ["Fully Furnished", "Pool Access", "Gym", "Parking", "Internet Ready"] 
+            },
+            3: { 
+                title: "Modern 2-Bed Apartment", 
+                price: "₦12M/yr", 
+                location: "Bourdillon Court, Lekki", 
+                image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop", 
+                beds: 2, 
+                baths: 2, 
+                sqm: 120, 
+                description: "Spacious 2-bedroom with modern finishes, serviced estate, and excellent road network.", 
+                features: ["Serviced Estate", "Gym", "24/7 Power", "Security", "Parking"] 
+            },
+            4: { 
+                title: "Executive 3-Bed Flat", 
+                price: "₦18M/yr", 
+                location: "Lekki Phase 1 Central", 
+                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop", 
+                beds: 3, 
+                baths: 3, 
+                sqm:*-
