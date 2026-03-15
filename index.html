@@ -1,170 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NaijaBelly – Nigerian Food Marketplace</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-<style>
-body{background:#FFF6E8;font-family:Arial,Helvetica,sans-serif}
-.navbar{background:#E07B39}
-.navbar-brand{font-weight:bold;color:white}
-.nav-link{color:white}
-.hero{background:linear-gradient(120deg,#E07B39,#C45A2A);color:white;padding:80px 20px;text-align:center}
-.food-card{transition:0.3s;border-radius:14px}
-.food-card:hover{transform:translateY(-6px);box-shadow:0 10px 25px rgba(0,0,0,0.15)}
-.food-img{height:180px;object-fit:cover;border-radius:14px 14px 0 0}
-.btn-food{background:#E07B39;color:white}
-.btn-food:hover{background:#C45A2A;color:white}
-.cart-panel{position:fixed;right:0;top:0;width:320px;height:100%;background:white;box-shadow:-4px 0 20px rgba(0,0,0,0.2);padding:20px;overflow:auto;transform:translateX(100%);transition:.4s;z-index:999}
-.cart-panel.open{transform:translateX(0)}
-.whatsapp-btn{position:fixed;bottom:25px;right:25px;background:#25D366;color:white;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;text-decoration:none}
-footer{background:#5D4037;color:white;padding:40px;margin-top:60px}
-.page{display:none}
-.page.active{display:block}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NaijaBelly - 100 Authentic Nigerian Dishes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'terracotta': '#E07B39',
+                        'deep-terracotta': '#C45A2A',
+                        'warm-cream': '#FFF8E7',
+                        'earth-brown': '#5D4037',
+                        'nigeria-green': '#008751',
+                        'palm-green': '#2D5016',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FFF8E7; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .page-section { display: none; opacity: 0; transition: opacity 0.4s ease; }
+        .page-section.active { display: block; opacity: 1; }
+        .cart-sidebar { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .cart-sidebar.open { transform: translateX(0); }
+        .cart-overlay { opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+        .cart-overlay.open { opacity: 1; visibility: visible; }
+        .food-card { transition: all 0.3s ease; }
+        .food-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(224, 123, 57, 0.15); }
+        .food-image { transition: transform 0.5s ease; }
+        .food-card:hover .food-image { transform: scale(1.08); }
+        .btn-primary { background: linear-gradient(135deg, #E07B39 0%, #C45A2A 100%); transition: all 0.3s ease; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(224, 123, 57, 0.4); }
+        .nav-link { position: relative; cursor: pointer; }
+        .nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #E07B39; transition: width 0.3s ease; }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .toast { transform: translateY(100px) translateX(-50%); opacity: 0; transition: all 0.4s ease; }
+        .toast.show { transform: translateY(0) translateX(-50%); opacity: 1; }
+        .category-tab.active { background: linear-gradient(135deg, #E07B39 0%, #C45A2A 100%); color: white; }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #25D366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); z-index: 1000; transition: all 0.3s ease; animation: pulse 2s infinite; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        @keyframes pulse { 0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); } 50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.6); } }
+    </style>
 </head>
-<body>
+<body class="bg-warm-cream text-earth-brown antialiased">
 
-<nav class="navbar navbar-expand-lg">
-<div class="container">
-<a class="navbar-brand" onclick="showPage('home')" href="#">NaijaBelly</a>
-<button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
-<div class="collapse navbar-collapse" id="navMenu">
-<ul class="navbar-nav ms-auto">
-<li class="nav-item"><a class="nav-link" onclick="showPage('home')">Home</a></li>
-<li class="nav-item"><a class="nav-link" onclick="showPage('menu')">Menu</a></li>
-<li class="nav-item"><a class="nav-link" onclick="showPage('about')">About</a></li>
-<li class="nav-item"><a class="nav-link" onclick="showPage('contact')">Contact</a></li>
-</ul>
-<button class="btn btn-light ms-3" onclick="toggleCart()"><i class="fa fa-shopping-cart"></i> Cart (<span id="cartCount">0</span>)</button>
-</div>
-</div>
-</nav>
+    <nav class="fixed w-full bg-white/95 backdrop-blur-lg shadow-sm z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-12 h-12 bg-gradient-to-br from-terracotta to-deep-terracotta rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-utensils text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-display text-2xl font-bold text-earth-brown">Naija<span class="text-terracotta">Belly</span></h1>
+                        <p class="text-xs text-terracotta font-medium">100 Authentic Dishes</p>
+                    </div>
+                </div>
 
-<section class="hero page active" id="home">
-<h1>Welcome to NaijaBelly</h1>
-<p>Discover over 100 authentic Nigerian dishes</p>
-<button class="btn btn-light mt-3" onclick="showPage('menu')">Explore Menu</button>
-</section>
+                <div class="hidden lg:flex items-center space-x-8">
+                    <a onclick="navigateTo('home')" class="nav-link active text-earth-brown hover:text-terracotta font-medium" data-page="home">Home</a>
+                    <a onclick="navigateTo('menu')" class="nav-link text-earth-brown hover:text-terracotta font-medium" data-page="menu">Menu</a>
+                    <a onclick="navigateTo('specials')" class="nav-link text-earth-brown hover:text-terracotta font-medium" data-page="specials">Specials</a>
+                    <a onclick="navigateTo('about')" class="nav-link text-earth-brown hover:text-terracotta font-medium" data-page="about">Our Story</a>
+                    <a onclick="navigateTo('contact')" class="nav-link text-earth-brown hover:text-terracotta font-medium" data-page="contact">Contact</a>
+                </div>
 
-<section class="container mt-5 page" id="menu">
-<h2 class="mb-4">Nigerian Menu – 100 Dishes</h2>
-<input class="form-control mb-4" id="search" placeholder="Search food..." onkeyup="searchFood()">
-<div class="row" id="foodContainer"></div>
-</section>
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleCart()" class="relative p-2 text-earth-brown hover:text-terracotta transition-colors">
+                        <i class="fas fa-shopping-basket text-2xl"></i>
+                        <span id="cart-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+                    </button>
+                    <button onclick="openWhatsApp()" class="hidden sm:flex bg-nigeria-green text-white px-4 py-2 rounded-full font-medium hover:bg-palm-green transition-colors items-center space-x-2">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>Order</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<section class="container mt-5 page" id="about">
-<h2>About Us</h2>
-<p>NaijaBelly is a Nigerian food marketplace celebrating traditional dishes from across Nigeria including Yoruba, Igbo and Hausa cuisine.</p>
-</section>
+    <div id="cart-overlay" class="cart-overlay fixed inset-0 bg-black/60 backdrop-blur-sm z-50" onclick="toggleCart()"></div>
+    <div id="cart-sidebar" class="cart-sidebar fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl z-50 overflow-hidden flex flex-col">
+        <div class="p-6 border-b bg-gradient-to-r from-terracotta to-deep-terracotta">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-display font-bold text-white">Your Order</h2>
+                <button onclick="toggleCart()" class="text-white hover:text-warm-cream transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
+        <div class="border-t p-6 bg-warm-cream">
+            <div class="space-y-2 mb-4">
+                <div class="flex justify-between text-gray-600"><span>Subtotal</span><span id="cart-subtotal">₦0</span></div>
+                <div class="flex justify-between text-gray-600"><span>Delivery</span><span>₦500</span></div>
+                <div class="flex justify-between text-xl font-bold text-earth-brown pt-2 border-t"><span>Total</span><span id="cart-total" class="text-terracotta">₦0</span></div>
+            </div>
+            <button onclick="checkoutWhatsApp()" class="w-full btn-primary text-white font-bold py-4 rounded-xl text-lg flex items-center justify-center space-x-2">
+                <i class="fab fa-whatsapp text-xl"></i>
+                <span>Order via WhatsApp</span>
+            </button>
+        </div>
+    </div>
 
-<section class="container mt-5 page" id="contact">
-<h2>Contact</h2>
-<p>Phone: 08143002152</p>
-<p>Email: playerd645@gmail.com</p>
-<button class="btn btn-success" onclick="openWhatsApp()">Chat on WhatsApp</button>
-</section>
+    <section id="home" class="page-section active pt-20">
+        <div class="relative min-h-[70vh] flex items-center justify-center">
+            <div class="absolute inset-0 bg-black/50 z-10"></div>
+            <img src="https://kimi-web-img.moonshot.cn/img/immaculateruemu.com/a9bc699772985026d4f72b537cb82b799812b2f0.jpeg" class="absolute inset-0 w-full h-full object-cover">
+            <div class="relative z-20 text-center text-white px-4">
+                <h1 class="font-display text-5xl md:text-7xl font-bold mb-6">Taste the Soul of Nigeria</h1>
+                <button onclick="navigateTo('menu')" class="btn-primary px-8 py-4 rounded-full font-bold text-lg">Explore Menu</button>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 py-20">
+            <h2 class="font-display text-4xl font-bold text-center mb-12">Popular Dishes</h2>
+            <div id="popular-dishes" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </div>
+    </section>
 
-<div class="cart-panel" id="cartPanel">
-<h4>Your Cart</h4>
-<ul id="cartItems" class="list-group mb-3"></ul>
-<h5>Total: ₦<span id="cartTotal">0</span></h5>
-<button class="btn btn-food w-100" onclick="checkout()">Checkout via WhatsApp</button>
-</div>
+    <section id="menu" class="page-section pt-20">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <h2 class="font-display text-5xl font-bold text-center mb-12">Full Menu</h2>
+            <div id="menu-grid" class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+        </div>
+    </section>
 
-<a class="whatsapp-btn" onclick="openWhatsApp()"><i class="fab fa-whatsapp"></i></a>
+    <script>
+        // ==================== FIXED DATABASE ====================
+        const menuItems = [
+            // RICE DISHES (1-15)
+            {id:1,name:"Party Jollof Rice",category:"rice",price:2500,image:"https://kimi-web-img.moonshot.cn/img/immaculateruemu.com/a9bc699772985026d4f72b537cb82b799812b2f0.jpeg",desc:"Smoky firewood jollof",popular:true},
+            {id:2,name:"Coconut Rice",category:"rice",price:3000,image:"https://kimi-web-img.moonshot.cn/img/cdn.guardian.ng/d1e8e14d36e68cc3640c348bb889e98ab164314f.jpg",desc:"Fragrant coconut milk rice"},
+            {id:3,name:"Fried Rice",category:"rice",price:2800,image:"https://kimi-web-img.moonshot.cn/img/img.sndimg.com/8c4af1e0f923c40b79535be8cc732108ed69abb1.jpg",desc:"Mixed vegetable rice"},
+            {id:4,name:"Ofada Rice",category:"rice",price:2000,image:"https://kimi-web-img.moonshot.cn/img/i.etsystatic.com/af3ccd3f5a7890f7fa29356b5f6eb575126abbbf.jpg",desc:"Local brown rice with ayamase"},
+            {id:5,name:"White Rice & Stew",category:"rice",price:2200,image:"https://kimi-web-img.moonshot.cn/img/travelandmunchies.com/22538601bd8a2220a533467a05d8f69629497ea7.jpg",desc:"Classic tomato stew base"},
+            {id:15,name:"Royal Rice Platter",category:"rice",price:8000,image:"https://images.unsplash.com/photo-1512058560366-cd2429598632?w=800",desc:"Assorted rice for 4 people"},
+            
+            // SWALLOWS (16-20) - FIXED UNIQUE IMAGES
+            {id:16,name:"Pounded Yam",category:"swallow",price:1500,image:"https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=800",desc:"Smooth pounded yam",popular:true},
+            {id:17,name:"Amala",category:"swallow",price:1200,image:"https://allnigerianrecipes.com/wp-content/uploads/2019/03/amala-ewedu.jpg",desc:"Dark yam flour specialty",popular:true},
+            {id:18,name:"Eba (Garri)",category:"swallow",price:1000,image:"https://sisijemimah.com/wp-content/uploads/2015/08/Eba-recipe.jpg",desc:"Yellow cassava flakes dough"},
+            {id:19,name:"Fufu",category:"swallow",price:1200,image:"https://lowcarbafrica.com/wp-content/uploads/2020/06/Fufu-Recipe-IG.jpg",desc:"Fermented cassava dough"}
+        ];
 
-<footer class="text-center">
-<p>© 2026 NaijaBelly Nigerian Food Marketplace</p>
-</footer>
+        let cart = [];
 
-<script>
-const foods=[
-"Jollof Rice","Fried Rice","Egusi Soup","Ogbono Soup","Afang Soup","Edikang Ikong","Banga Soup","Pepper Soup","Okra Soup","Efo Riro",
-"Pounded Yam","Amala","Semovita","Fufu","Garri","Suya","Kilishi","Moi Moi","Akara","Beans and Plantain",
-"Coconut Rice","Ofada Rice","Ayamase","Abacha","Ukwa","Oha Soup","Nsala Soup","White Soup","Bitterleaf Soup","Groundnut Soup",
-"Yam Porridge","Plantain Porridge","Beans Porridge","Nkwobi","Isi Ewu","Asun","Peppered Snails","Peppered Chicken","Peppered Fish","Catfish Pepper Soup",
-"Goat Meat Pepper Soup","Turkey Stew","Chicken Stew","Beef Stew","Palm Oil Rice","Native Rice","Boli","Roasted Corn","Agidi","Ekuru",
-"Kunun Drink","Zobo","Palm Wine","Chapman","Tiger Nut Drink","Soy Milk","Coconut Drink","Fruit Salad","Meat Pie","Fish Pie",
-"Chicken Pie","Sausage Roll","Puff Puff","Doughnut","Chin Chin","Cake","Bread","Sandwich","Spaghetti Jollof","Macaroni Jollof",
-"Jollof Spaghetti","Egg Sauce","Plantain Egg Mix","Fried Yam","Boiled Yam","Yam and Egg","Rice and Beans","Beans Cake","Beans Soup","Okpa",
-"Tuwo Shinkafa","Tuwo Masara","Miyan Kuka","Miyan Taushe","Dan Wake","Fura da Nono","Kilishi Special","Suya Special","Party Jollof","Ofada Stew"
-];
+        function navigateTo(pageId) {
+            document.querySelectorAll('.page-section').forEach(p => p.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0,0);
+        }
 
-const foodContainer=document.getElementById("foodContainer")
-let cart=[]
+        function renderMenu() {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = menuItems.map(item => `
+                <div class="food-card bg-white rounded-3xl shadow-lg overflow-hidden border border-orange-100">
+                    <img src="${item.image}" class="w-full h-48 object-cover food-image">
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl">${item.name}</h3>
+                        <p class="text-terracotta font-bold text-lg mt-2">₦${item.price.toLocaleString()}</p>
+                        <button onclick="addToCart('${item.name}', ${item.price})" class="w-full btn-primary text-white py-3 rounded-xl mt-4 font-bold">Add to Cart</button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-function renderFoods(list){
-foodContainer.innerHTML=""
-list.forEach((food,i)=>{
-const price=Math.floor(Math.random()*4000)+1500
-const card=`
-<div class="col-md-3 mb-4">
-<div class="card food-card">
-<img class="food-img" src="https://source.unsplash.com/400x300/?african-food"/>
-<div class="card-body">
-<h5>${food}</h5>
-<p>₦${price}</p>
-<button class="btn btn-food" onclick="addToCart('${food}',${price})">Add to Cart</button>
-</div>
-</div>
-</div>`
-foodContainer.innerHTML+=card
-})
-}
+        function renderPopularDishes() {
+            const grid = document.getElementById('popular-dishes');
+            const popular = menuItems.filter(i => i.popular);
+            grid.innerHTML = popular.map(item => `
+                <div class="food-card bg-white rounded-2xl shadow-md overflow-hidden">
+                    <img src="${item.image}" class="w-full h-40 object-cover">
+                    <div class="p-4">
+                        <h3 class="font-bold">${item.name}</h3>
+                        <p class="text-terracotta font-bold">₦${item.price.toLocaleString()}</p>
+                        <button onclick="addToCart('${item.name}', ${item.price})" class="w-full bg-orange-50 text-terracotta py-2 rounded-lg mt-3 font-semibold hover:bg-terracotta hover:text-white transition-all">Add</button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-renderFoods(foods)
+        function addToCart(name, price) {
+            cart.push({name, price});
+            updateCartUI();
+            toggleCart(true);
+        }
 
-function addToCart(name,price){
-cart.push({name,price})
-updateCart()
-}
+        function updateCartUI() {
+            const badge = document.getElementById('cart-badge');
+            const list = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            
+            badge.textContent = cart.length;
+            badge.classList.toggle('hidden', cart.length === 0);
 
-function updateCart(){
-const items=document.getElementById("cartItems")
-const total=document.getElementById("cartTotal")
-const count=document.getElementById("cartCount")
-items.innerHTML=""
-let sum=0
-cart.forEach(i=>{
-items.innerHTML+=`<li class='list-group-item'>${i.name} - ₦${i.price}</li>`
-sum+=i.price
-})
-count.innerText=cart.length
+            list.innerHTML = cart.map((item, idx) => `
+                <div class="flex justify-between items-center py-2 border-b">
+                    <div>
+                        <p class="font-bold">${item.name}</p>
+                        <p class="text-sm text-gray-500">₦${item.price.toLocaleString()}</p>
+                    </div>
+                    <button onclick="removeFromCart(${idx})" class="text-red-500"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
 
- total.innerText=sum
-}
+            const total = cart.reduce((sum, item) => sum + item.price, 0) + 500;
+            totalEl.textContent = `₦${total.toLocaleString()}`;
+        }
 
-function toggleCart(){
-const panel=document.getElementById("cartPanel")
-panel.classList.toggle("open")
-}
+        function removeFromCart(idx) {
+            cart.splice(idx, 1);
+            updateCartUI();
+        }
 
-function checkout(){
-let msg="Hello I want to order:%0A"
-cart.forEach(i=>{msg+=i.name+" - ₦"+i.price+"%0A"})
-window.open("https://wa.me/2348143002152?text="+msg)
-}
+        function toggleCart(open = null) {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            const isOpening = open !== null ? open : !sidebar.classList.contains('open');
+            
+            sidebar.classList.toggle('open', isOpening);
+            overlay.classList.toggle('open', isOpening);
+        }
 
-function openWhatsApp(){
-window.open("https://wa.me/2348143002152")
-}
+        function checkoutWhatsApp() {
+            const items = cart.map(i => `${i.name} (₦${i.price})`).join('\n');
+            const msg = `New Order from NaijaBelly:\n\n${items}\n\nTotal: ${document.getElementById('cart-total').textContent}`;
+            window.open(`https://wa.me/2348143002152?text=${encodeURIComponent(msg)}`, '_blank');
+        }
 
-function searchFood(){
-const val=document.getElementById("search").value.toLowerCase()
-const filtered=foods.filter(f=>f.toLowerCase().includes(val))
-renderFoods(filtered)
-}
-
-function showPage(page){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'))
-document.getElementById(page).classList.add('active')
-window.scrollTo(0,0)
-}
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPopularDishes();
+            renderMenu();
+        });
+    </script>
 </body>
 </html>
