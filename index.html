@@ -3,1142 +3,793 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lekki Luxe | Premium Apartments in Lekki Phase 1</title>
+    <title>The Omo Eaters - Authentic Nigerian Cuisine</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        serif: ['Playfair Display', 'serif'],
-                        sans: ['Inter', 'sans-serif'],
-                    },
                     colors: {
-                        navy: {
-                            900: '#0f172a',
-                            800: '#1e293b',
-                            700: '#334155',
-                        },
-                        gold: {
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
-                        },
-                        sage: {
-                            50: '#f6f7f4',
-                            100: '#e8ebe4',
-                            200: '#d5dbd0',
-                        }
+                        'warm-orange': '#E07B39',
+                        'warm-coral': '#D4653E',
+                        'warm-cream': '#FDF6E3',
+                        'warm-brown': '#5D4037',
+                        'warm-gold': '#F4A460',
+                        'warm-red': '#C75B39',
+                        'deep-brown': '#3E2723',
+                        'soft-cream': '#FFF8E7',
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
-        .gradient-text {
-            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        body { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .cart-sidebar {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .cart-sidebar.open { transform: translateX(0); }
+        .cart-overlay {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
         }
-        .property-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .cart-overlay.open { opacity: 1; visibility: visible; }
+        .food-card:hover .food-image { transform: scale(1.05); }
+        .food-image { transition: transform 0.3s ease; }
+        .btn-primary {
+            background: linear-gradient(135deg, #E07B39 0%, #D4653E 100%);
+            transition: all 0.3s ease;
         }
-        .property-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2);
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(224, 123, 57, 0.3);
         }
-        .hero-pattern {
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(251, 191, 36, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(15, 23, 42, 0.1) 0px, transparent 50%);
+        .nav-link { position: relative; cursor: pointer; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #E07B39;
+            transition: width 0.3s ease;
         }
-        .fade-in {
-            animation: fadeIn 0.8s ease-out forwards;
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .quantity-btn { transition: all 0.2s ease; }
+        .quantity-btn:hover { background-color: #E07B39; color: white; }
+        .toast {
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
         }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .page-section { display: none; }
+        .page-section.active { display: block; animation: fadeIn 0.4s ease; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .slide-in {
-            animation: slideIn 0.6s ease-out forwards;
-        }
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-30px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-        .modal-enter {
-            animation: modalEnter 0.3s ease-out forwards;
-        }
-        @keyframes modalEnter {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .hamburger-line {
-            transition: all 0.3s ease-in-out;
-        }
-        .hamburger-active .line-1 {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-        .hamburger-active .line-2 {
-            opacity: 0;
-        }
-        .hamburger-active .line-3 {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-        .mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-        .mobile-menu.open {
-            max-height: 400px;
-        }
-        .neighborhood-tab {
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .neighborhood-tab.active {
-            background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(251, 191, 36, 0.4);
-        }
-        .landmark-card {
-            transition: all 0.3s ease;
-        }
-        .landmark-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s ease-out;
-        }
+        .menu-tab.active { background: #E07B39 !important; color: white !important; }
     </style>
 </head>
-<body class="font-sans bg-sage-50 text-navy-900 antialiased">
+<body class="bg-soft-cream text-warm-brown">
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
-        <div class="glass-card border-b border-white/20">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-20">
-                    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="flex items-center space-x-2 cursor-pointer hover:opacity-80 transition-opacity">
-                        <i class="fas fa-building text-gold-500 text-2xl"></i>
-                        <span class="font-serif text-2xl font-bold text-navy-900">Lekki<span class="text-gold-500">Luxe</span></span>
-                    </a>
-                    
-                    <!-- Desktop Menu -->
-                    <div class="hidden md:flex space-x-8">
-                        <a href="#properties" class="text-navy-700 hover:text-gold-600 font-medium transition">Properties</a>
-                        <a href="#neighborhood" class="text-navy-700 hover:text-gold-600 font-medium transition">Neighborhood</a>
-                        <a href="#amenities" class="text-navy-700 hover:text-gold-600 font-medium transition">Amenities</a>
-                        <a href="#contact" class="text-navy-700 hover:text-gold-600 font-medium transition">Contact</a>
+    <nav class="fixed w-full bg-white/95 backdrop-blur-md shadow-sm z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center cursor-pointer" onclick="navigateTo('home', this)">
+                    <div class="w-12 h-12 bg-gradient-to-br from-warm-orange to-warm-coral rounded-full flex items-center justify-center mr-3">
+                        <i class="fas fa-utensils text-white text-xl"></i>
                     </div>
-                    
-                    <div class="hidden md:block">
-                        <button onclick="scrollToContact()" class="bg-navy-900 text-white px-6 py-2.5 rounded-full font-medium hover:bg-gold-600 transition-all duration-300 transform hover:scale-105">
-                            Schedule Viewing
-                        </button>
+                    <div>
+                        <h1 class="font-display text-2xl font-bold text-deep-brown">The Omo Eaters</h1>
+                        <p class="text-xs text-warm-orange font-medium">Authentic Nigerian Cuisine</p>
                     </div>
+                </div>
 
-                    <!-- Hamburger Button (Mobile) -->
-                    <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2 focus:outline-none" onclick="toggleMobileMenu()">
-                        <span class="hamburger-line line-1 w-6 h-0.5 bg-navy-900 block"></span>
-                        <span class="hamburger-line line-2 w-6 h-0.5 bg-navy-900 block"></span>
-                        <span class="hamburger-line line-3 w-6 h-0.5 bg-navy-900 block"></span>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a onclick="navigateTo('home', this)" class="nav-link active text-warm-brown hover:text-warm-orange font-medium">Home</a>
+                    <a onclick="navigateTo('menu', this)" class="nav-link text-warm-brown hover:text-warm-orange font-medium">Menu</a>
+                    <a onclick="navigateTo('about', this)" class="nav-link text-warm-brown hover:text-warm-orange font-medium">About Us</a>
+                    <a onclick="navigateTo('contact', this)" class="nav-link text-warm-brown hover:text-warm-orange font-medium">Contact</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleCart()" class="relative p-2 text-warm-brown hover:text-warm-orange transition-colors">
+                        <i class="fas fa-shopping-bag text-2xl"></i>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-warm-coral text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center hidden">0</span>
+                    </button>
+                    <button class="md:hidden p-2 text-warm-brown" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
+            </div>
+        </div>
 
-                <!-- Mobile Menu -->
-                <div id="mobileMenu" class="mobile-menu md:hidden border-t border-sage-200">
-                    <div class="py-4 space-y-4">
-                        <a href="#properties" onclick="toggleMobileMenu()" class="block text-navy-700 hover:text-gold-600 font-medium py-2">Properties</a>
-                        <a href="#neighborhood" onclick="toggleMobileMenu()" class="block text-navy-700 hover:text-gold-600 font-medium py-2">Neighborhood</a>
-                        <a href="#amenities" onclick="toggleMobileMenu()" class="block text-navy-700 hover:text-gold-600 font-medium py-2">Amenities</a>
-                        <a href="#contact" onclick="toggleMobileMenu()" class="block text-navy-700 hover:text-gold-600 font-medium py-2">Contact</a>
-                        <button onclick="scrollToContact(); toggleMobileMenu();" class="w-full bg-navy-900 text-white px-6 py-3 rounded-full font-medium hover:bg-gold-600 transition-all duration-300">
-                            Schedule Viewing
-                        </button>
-                    </div>
-                </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 py-3 space-y-2">
+                <a onclick="navigateTo('home', this)" class="block py-2 text-warm-brown hover:text-warm-orange font-medium">Home</a>
+                <a onclick="navigateTo('menu', this)" class="block py-2 text-warm-brown hover:text-warm-orange font-medium">Menu</a>
+                <a onclick="navigateTo('about', this)" class="block py-2 text-warm-brown hover:text-warm-orange font-medium">About Us</a>
+                <a onclick="navigateTo('contact', this)" class="block py-2 text-warm-brown hover:text-warm-orange font-medium">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden hero-pattern">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="fade-in">
-                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-gold-100 text-gold-700 font-medium text-sm mb-6">
-                        <i class="fas fa-star mr-2"></i> Premium Living in Lekki Phase 1
-                    </div>
-                    <h1 class="font-serif text-5xl lg:text-7xl font-bold text-navy-900 leading-tight mb-6">
-                        Discover Your <span class="gradient-text">Dream Home</span> in Lagos' Finest Address
-                    </h1>
-                    <p class="text-lg text-navy-700 mb-8 leading-relaxed max-w-lg">
-                        Experience luxury living in Lekki Phase 1. From stylish mini flats to expansive 5-bedroom apartments, find your perfect space in Nigeria's most prestigious neighborhood.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button onclick="scrollToProperties()" class="bg-navy-900 text-white px-8 py-4 rounded-full font-semibold hover:bg-gold-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                            Browse Properties
-                        </button>
-                        <button onclick="scrollToNeighborhood()" class="border-2 border-navy-900 text-navy-900 px-8 py-4 rounded-full font-semibold hover:bg-navy-900 hover:text-white transition-all duration-300">
-                            <i class="fas fa-map-marked-alt mr-2"></i>Explore Area
-                        </button>
-                    </div>
-                    <div class="mt-12 flex items-center gap-8">
-                        <div>
-                            <p class="text-3xl font-bold text-navy-900">₦12.3M</p>
-                            <p class="text-sm text-navy-600">Average Rent/Year</p>
-                        </div>
-                        <div class="h-12 w-px bg-navy-200"></div>
-                        <div>
-                            <p class="text-3xl font-bold text-navy-900">50+</p>
-                            <p class="text-sm text-navy-600">Premium Units</p>
-                        </div>
-                        <div class="h-12 w-px bg-navy-200"></div>
-                        <div>
-                            <p class="text-3xl font-bold text-navy-900">24/7</p>
-                            <p class="text-sm text-navy-600">Power & Security</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="relative slide-in">
-                    <div class="relative rounded-3xl overflow-hidden shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=1000&fit=crop" alt="Luxury Apartment" class="w-full h-[600px] object-cover">
-                        <div class="absolute inset-0 bg-gradient-to-t from-navy-900/60 to-transparent"></div>
-                        <div class="absolute bottom-8 left-8 right-8">
-                            <div class="glass-card p-6 rounded-2xl">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <p class="text-gold-400 font-semibold">Featured Property</p>
-                                        <p class="text-white text-xl font-serif">Ocean View Penthouse</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="text-2xl font-bold text-white">₦35M</p>
-                                        <p class="text-white/80 text-sm">per annum</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="absolute -top-6 -right-6 bg-white p-4 rounded-2xl shadow-xl animate-bounce">
-                        <i class="fas fa-shield-alt text-gold-500 text-2xl"></i>
-                    </div>
-                    <div class="absolute -bottom-6 -left-6 bg-navy-900 text-white p-4 rounded-2xl shadow-xl">
-                        <div class="flex items-center gap-2">
-                            <i class="fas fa-bolt text-gold-400"></i>
-                            <span class="font-semibold">24/7 Power</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="cart-overlay fixed inset-0 bg-black/50 z-50" onclick="toggleCart()"></div>
 
-    <!-- Search Filter -->
-    <section class="py-8 -mt-10 relative z-20">
-        <div class="max-w-5xl mx-auto px-4">
-            <div class="glass-card rounded-3xl p-6 shadow-xl">
-                <div class="grid md:grid-cols-4 gap-4">
-                    <div class="relative">
-                        <label class="block text-sm font-medium text-navy-700 mb-2">Property Type</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none bg-white">
-                            <option>All Types</option>
-                            <option>Mini Flat</option>
-                            <option>2 Bedroom</option>
-                            <option>3 Bedroom</option>
-                            <option>4+ Bedroom</option>
-                        </select>
-                    </div>
-                    <div class="relative">
-                        <label class="block text-sm font-medium text-navy-700 mb-2">Price Range</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none bg-white">
-                            <option>Any Price</option>
-                            <option>₦1M - ₦5M</option>
-                            <option>₦5M - ₦15M</option>
-                            <option>₦15M - ₦30M</option>
-                            <option>₦30M+</option>
-                        </select>
-                    </div>
-                    <div class="relative">
-                        <label class="block text-sm font-medium text-navy-700 mb-2">Location</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none bg-white">
-                            <option>Lekki Phase 1</option>
-                            <option>Admiralty Way</option>
-                            <option>Femi Okunnu Estate</option>
-                            <option>Bourdillon Court</option>
-                        </select>
-                    </div>
-                    <div class="flex items-end">
-                        <button class="w-full bg-gold-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300 flex items-center justify-center gap-2">
-                            <i class="fas fa-search"></i> Search
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Properties Grid -->
-    <section id="properties" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="font-serif text-4xl md:text-5xl font-bold text-navy-900 mb-4">Available Properties</h2>
-                <p class="text-navy-600 text-lg max-w-2xl mx-auto">Curated selection of premium apartments in Lekki Phase 1, featuring modern amenities and prime locations.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Property 1 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=600&h=400&fit=crop" alt="Mini Flat" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-gold-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Mini Flat</div>
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-semibold text-navy-900">
-                            <i class="fas fa-star text-gold-500 mr-1"></i>4.9
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-serif text-xl font-bold text-navy-900">Furnished Mini Flat</h3>
-                            <span class="text-gold-600 font-bold text-lg">₦9M<span class="text-sm text-navy-500 font-normal">/yr</span></span>
-                        </div>
-                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Admiralty Way, Lekki Phase 1</p>
-                        <div class="flex gap-4 text-sm text-navy-600 mb-4 border-t border-sage-100 pt-4">
-                            <span><i class="fas fa-bed mr-1"></i> 1 Bed</span>
-                            <span><i class="fas fa-bath mr-1"></i> 1 Bath</span>
-                            <span><i class="fas fa-ruler-combined mr-1"></i> 45m²</span>
-                        </div>
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Furnished</span>
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">24/7 Power</span>
-                        </div>
-                        <button onclick="openPropertyModal(1)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Property 2 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=400&fit=crop" alt="Studio Apartment" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-navy-900 text-white px-3 py-1 rounded-full text-sm font-semibold">Studio</div>
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-semibold text-navy-900">
-                            <i class="fas fa-star text-gold-500 mr-1"></i>4.8
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-serif text-xl font-bold text-navy-900">Luxury Studio</h3>
-                            <span class="text-gold-600 font-bold text-lg">₦5.5M<span class="text-sm text-navy-500 font-normal">/yr</span></span>
-                        </div>
-                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Femi Okunnu Estate</p>
-                        <div class="flex gap-4 text-sm text-navy-600 mb-4 border-t border-sage-100 pt-4">
-                            <span><i class="fas fa-bed mr-1"></i> Studio</span>
-                            <span><i class="fas fa-bath mr-1"></i> 1 Bath</span>
-                            <span><i class="fas fa-ruler-combined mr-1"></i> 35m²</span>
-                        </div>
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Fully Furnished</span>
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Pool</span>
-                        </div>
-                        <button onclick="openPropertyModal(2)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Property 3 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=400&fit=crop" alt="2 Bedroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">2 Bedroom</div>
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-semibold text-navy-900">
-                            <i class="fas fa-star text-gold-500 mr-1"></i>5.0
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-serif text-xl font-bold text-navy-900">Modern 2-Bed Apartment</h3>
-                            <span class="text-gold-600 font-bold text-lg">₦12M<span class="text-sm text-navy-500 font-normal">/yr</span></span>
-                        </div>
-                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Bourdillon Court, Lekki</p>
-                        <div class="flex gap-4 text-sm text-navy-600 mb-4 border-t border-sage-100 pt-4">
-                            <span><i class="fas fa-bed mr-1"></i> 2 Beds</span>
-                            <span><i class="fas fa-bath mr-1"></i> 2 Baths</span>
-                            <span><i class="fas fa-ruler-combined mr-1"></i> 120m²</span>
-                        </div>
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Serviced</span>
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Gym</span>
-                        </div>
-                        <button onclick="openPropertyModal(3)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Property 4 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop" alt="3 Bedroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-semibold">3 Bedroom</div>
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-semibold text-navy-900">
-                            <i class="fas fa-star text-gold-500 mr-1"></i>4.9
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-serif text-xl font-bold text-navy-900">Executive 3-Bed Flat</h3>
-                            <span class="text-gold-600 font-bold text-lg">₦18M<span class="text-sm text-navy-500 font-normal">/yr</span></span>
-                        </div>
-                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Lekki Phase 1 Central</p>
-                        <div class="flex gap-4 text-sm text-navy-600 mb-4 border-t border-sage-100 pt-4">
-                            <span><i class="fas fa-bed mr-1"></i> 3 Beds</span>
-                            <span><i class="fas fa-bath mr-1"></i> 3 Baths</span>
-                            <span><i class="fas fa-ruler-combined mr-1"></i> 180m²</span>
-                        </div>
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Ocean View</span>
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Smart Home</span>
-                        </div>
-                        <button onclick="openPropertyModal(4)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Property 5 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop" alt="4 Bedroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-sm font-semibold">4 Bedroom</div>
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-semibold text-navy-900">
-                            <i class="fas fa-star text-gold-500 mr-1"></i>5.0
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-serif text-xl font-bold text-navy-900">Luxury 4-Bed Penthouse</h3>
-                            <span class="text-gold-600 font-bold text-lg">₦35M<span class="text-sm text-navy-500 font-normal">/yr</span></span>
-                        </div>
-                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Admiralty Way Waterfront</p>
-                        <div class="flex gap-4 text-sm text-navy-600 mb-4 border-t border-sage-100 pt-4">
-                            <span><i class="fas fa-bed mr-1"></i> 4 Beds</span>
-                            <span><i class="fas fa-bath mr-1"></i> 4 Baths</span>
-                            <span><i class="fas fa-ruler-combined mr-1"></i> 350m²</span>
-                        </div>
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Penthouse</span>
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Private Elevator</span>
-                        </div>
-                        <button onclick="openPropertyModal(5)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300">View Details</button>
-                    </div>
-                </div>
-
-                <!-- Property 6 -->
-                <div class="property-card bg-white rounded-3xl overflow-hidden shadow-lg border border-sage-100">
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=600&h=400&fit=crop" alt="5 Bedroom" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110">
-                        <div class="absolute top-4 left-4 bg-navy-900 text-white px-3 py-1 rounded-full text-sm font-semibold">5 Bedroom</div>
-                        <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-semibold text-navy-900">
-                            <i class="fas fa-star text-gold-500 mr-1"></i>5.0
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-serif text-xl font-bold text-navy-900">Mansion Apartment</h3>
-                            <span class="text-gold-600 font-bold text-lg">₦40M<span class="text-sm text-navy-500 font-normal">/yr</span></span>
-                        </div>
-                        <p class="text-navy-600 text-sm mb-4"><i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>Exclusive Lekki Phase 1</p>
-                        <div class="flex gap-4 text-sm text-navy-600 mb-4 border-t border-sage-100 pt-4">
-                            <span><i class="fas fa-bed mr-1"></i> 5 Beds</span>
-                            <span><i class="fas fa-bath mr-1"></i> 6 Baths</span>
-                            <span><i class="fas fa-ruler-combined mr-1"></i> 500m²</span>
-                        </div>
-                        <div class="flex gap-2 mb-4">
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Smart Home</span>
-                            <span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-xs">Cinema</span>
-                        </div>
-                        <button onclick="openPropertyModal(6)" class="w-full bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300">View Details</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-12">
-                <button class="border-2 border-navy-900 text-navy-900 px-8 py-3 rounded-full font-semibold hover:bg-navy-900 hover:text-white transition-all duration-300">
-                    View All Properties
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="cart-sidebar fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl z-50 overflow-hidden flex flex-col">
+        <div class="p-6 border-b bg-gradient-to-r from-warm-orange to-warm-coral">
+            <div class="flex justify-between items-center">
+                <h2 class="text-2xl font-display font-bold text-white">Your Order</h2>
+                <button onclick="toggleCart()" class="text-white hover:text-warm-cream transition-colors">
+                    <i class="fas fa-times text-2xl"></i>
                 </button>
             </div>
         </div>
-    </section>
 
-    <!-- Property Details Modal -->
-    <div id="propertyModal" class="fixed inset-0 z-[60] hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 bg-navy-900/75 transition-opacity" aria-hidden="true" onclick="closePropertyModal()"></div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div class="relative inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full modal-enter">
-                <button onclick="closePropertyModal()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center text-navy-900 transition shadow-lg">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-                <div id="modalContent"></div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+            <!-- Cart items injected here -->
+        </div>
+
+        <div class="border-t p-6 bg-soft-cream">
+            <div class="space-y-2 mb-4">
+                <div class="flex justify-between text-gray-600">
+                    <span>Subtotal</span>
+                    <span id="cart-subtotal">₦0</span>
+                </div>
+                <div class="flex justify-between text-gray-600">
+                    <span>Delivery Fee</span>
+                    <span>₦500</span>
+                </div>
+                <div class="flex justify-between text-xl font-bold text-warm-brown pt-2 border-t">
+                    <span>Total</span>
+                    <span id="cart-total">₦0</span>
+                </div>
             </div>
+            <button onclick="checkout()" class="w-full btn-primary text-white font-bold py-4 rounded-xl text-lg">
+                Proceed to Checkout
+            </button>
         </div>
     </div>
 
-    <!-- NEIGHBORHOOD SECTION - FIXED WITH WORKING TABS -->
-    <section id="neighborhood" class="py-20 bg-sage-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="font-serif text-4xl md:text-5xl font-bold text-navy-900 mb-4">Explore Lekki Phase 1</h2>
-                <p class="text-navy-600 text-lg max-w-2xl mx-auto">Discover the vibrant neighborhood, iconic landmarks, and world-class amenities that make Lekki Phase 1 Lagos' most desirable address.</p>
-            </div>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-deep-brown text-white px-6 py-3 rounded-full shadow-lg z-50 flex items-center space-x-2">
+        <i class="fas fa-check-circle text-warm-orange"></i>
+        <span id="toast-message">Item added to cart!</span>
+    </div>
 
-            <!-- Interactive Tabs - FIXED -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <button onclick="switchTab('landmarks')" id="tab-landmarks" class="neighborhood-tab active px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md hover:shadow-lg">
-                    <i class="fas fa-landmark mr-2"></i>Landmarks
-                </button>
-                <button onclick="switchTab('dining')" id="tab-dining" class="neighborhood-tab px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md hover:shadow-lg">
-                    <i class="fas fa-utensils mr-2"></i>Dining & Nightlife
-                </button>
-                <button onclick="switchTab('shopping')" id="tab-shopping" class="neighborhood-tab px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md hover:shadow-lg">
-                    <i class="fas fa-shopping-bag mr-2"></i>Shopping
-                </button>
-                <button onclick="switchTab('nature')" id="tab-nature" class="neighborhood-tab px-6 py-3 rounded-full font-semibold text-navy-700 bg-white shadow-md hover:shadow-lg">
-                    <i class="fas fa-leaf mr-2"></i>Nature & Recreation
-                </button>
-            </div>
-
-            <!-- Tab Content: Landmarks - ACTIVE BY DEFAULT -->
-            <div id="content-landmarks" class="tab-content active">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1590674899505-1c5c4c9b7a6e?w=600&h=400&fit=crop" alt="Lekki-Ikoyi Bridge" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Lekki-Ikoyi Link Bridge</h3>
-                            <p class="text-navy-600 text-sm mb-4">Nigeria's most photographed landmark. This 1.36km cable-stayed bridge connects Lekki to Ikoyi and is a popular jogging spot with stunning views.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-walking mr-2"></i> 5 mins drive
-                            </div>
-                        </div>
-                    </div>
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?w=600&h=400&fit=crop" alt="Nike Art Gallery" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Nike Art Gallery</h3>
-                            <p class="text-navy-600 text-sm mb-4">Nigeria's #1 art destination on TripAdvisor. This 4-story gallery features over 7,000 pieces of traditional and contemporary Nigerian art.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-palette mr-2"></i> 8 mins drive
-                            </div>
-                        </div>
-                    </div>
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?w=600&h=400&fit=crop" alt="Lekki Conservation Centre" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Lekki Conservation Centre</h3>
-                            <p class="text-navy-600 text-sm mb-4">Home to Africa's longest canopy walkway (401m). Experience nature with 360-degree views from 22ft high towers in this urban oasis.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-tree mr-2"></i> 10 mins drive
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab Content: Dining -->
-            <div id="content-dining" class="tab-content">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop" alt="Circa Lagos" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Circa Lagos</h3>
-                            <p class="text-navy-600 text-sm mb-4">Upscale waterfront dining with panoramic ocean views. Perfect for romantic dinners and business meetings.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-utensils mr-2"></i> Fine Dining
-                            </div>
-                        </div>
-                    </div>
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&h=400&fit=crop" alt="Bay Lounge" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Bay Lounge</h3>
-                            <p class="text-navy-600 text-sm mb-4">Trendy beachfront lounge offering fresh seafood, cocktails, and live music with cool ocean breeze.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-cocktail mr-2"></i> Beach Lounge
-                            </div>
-                        </div>
-                    </div>
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1560624052-449f5ddf0c31?w=600&h=400&fit=crop" alt="Club Quilox" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Club Quilox</h3>
-                            <p class="text-navy-600 text-sm mb-4">Lagos' most famous nightlife destination. High-energy club with international DJs and celebrity sightings.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-music mr-2"></i> Nightlife
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab Content: Shopping -->
-            <div id="content-shopping" class="tab-content">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="The Palms" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">The Palms Shopping Mall</h3>
-                            <p class="text-navy-600 text-sm mb-4">Lekki's premier shopping destination with 69 stores, modern 6-screen cinema, and ample parking for 1000+ cars.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-shopping-cart mr-2"></i> 5 mins drive
-                            </div>
-                        </div>
-                    </div>
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop" alt="Lekki Arts Market" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Lekki Arts & Crafts Market</h3>
-                            <p class="text-navy-600 text-sm mb-4">Vibrant open-air market featuring traditional Nigerian art, wood carvings, textiles, beadwork, and antiques from the 1930s.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-gift mr-2"></i> 7 mins drive
-                            </div>
-                        </div>
-                    </div>
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=600&h=400&fit=crop" alt="Circle Mall" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Circle Mall</h3>
-                            <p class="text-navy-600 text-sm mb-4">Modern shopping complex with electronics, fashion boutiques, grocery stores, and casual dining options.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-store mr-2"></i> 3 mins drive
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tab Content: Nature -->
-            <div id="content-nature" class="tab-content">
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop" alt="Elegushi Beach" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Elegushi Royal Beach</h3>
-                            <p class="text-navy-600 text-sm mb-4">Private beach with horse riding, beach volleyball, and fresh seafood grills. Perfect for weekend getaways.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-umbrella-beach mr-2"></i> 12 mins drive
-                            </div>
-                        </div>
-                    </div>
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&h=400&fit=crop" alt="Landmark Beach" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Landmark Beach</h3>
-                            <p class="text-navy-600 text-sm mb-4">Pristine beach with water sports, beachfront dining, and the iconic Landmark Event Centre for concerts.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-water mr-2"></i> 8 mins drive
-                            </div>
-                        </div>
-                    </div>
-                    <div class="landmark-card bg-white rounded-2xl overflow-hidden shadow-lg">
-                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop" alt="Upbeat Centre" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="font-bold text-xl text-navy-900 mb-2">Upbeat Centre</h3>
-                            <p class="text-navy-600 text-sm mb-4">West Africa's largest trampoline park and recreation center. Perfect for families and fitness enthusiasts.</p>
-                            <div class="flex items-center text-gold-600 text-sm font-semibold">
-                                <i class="fas fa-running mr-2"></i> 15 mins drive
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Stats -->
-            <div class="mt-16 grid md:grid-cols-4 gap-6">
-                <div class="bg-white rounded-2xl p-6 text-center shadow-lg">
-                    <i class="fas fa-road text-gold-500 text-3xl mb-3"></i>
-                    <h4 class="font-bold text-navy-900 text-lg">Admiralty Way</h4>
-                    <p class="text-navy-600 text-sm">Commercial heart with restaurants & offices</p>
-                </div>
-                <div class="bg-white rounded-2xl p-6 text-center shadow-lg">
-                    <i class="fas fa-home text-gold-500 text-3xl mb-3"></i>
-                    <h4 class="font-bold text-navy-900 text-lg">Freedom Way</h4>
-                    <p class="text-navy-600 text-sm">Residential hub with estates & lagoon views</p>
-                </div>
-                <div class="bg-white rounded-2xl p-6 text-center shadow-lg">
-                    <i class="fas fa-graduation-cap text-gold-500 text-3xl mb-3"></i>
-                    <h4 class="font-bold text-navy-900 text-lg">Top Schools</h4>
-                    <p class="text-navy-600 text-sm">British Int'l, American Int'l, Greensprings</p>
-                </div>
-                <div class="bg-white rounded-2xl p-6 text-center shadow-lg">
-                    <i class="fas fa-hospital text-gold-500 text-3xl mb-3"></i>
-                    <h4 class="font-bold text-navy-900 text-lg">Healthcare</h4>
-                    <p class="text-navy-600 text-sm">Evercare, Lagoon Hospitals, Chevron Clinic</p>
+    <!-- HOME PAGE -->
+    <section id="home" class="page-section active pt-20">
+        <!-- Hero Section -->
+        <div class="relative h-[600px] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-r from-deep-brown/90 to-warm-brown/80"></div>
+            <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=1200" alt="Nigerian Food" class="absolute inset-0 w-full h-full object-cover -z-10">
+            <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+                <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                    Taste the Soul of <span class="text-warm-gold">Nigeria</span>
+                </h1>
+                <p class="text-xl text-warm-cream mb-8 max-w-2xl mx-auto">
+                    Authentic flavors, traditional recipes, and warm hospitality. Experience the best of Nigerian cuisine delivered to your doorstep.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="navigateTo('menu', document.querySelectorAll('.nav-link')[1])" class="btn-primary text-white px-8 py-4 rounded-full font-bold text-lg">
+                        Order Now <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    <button onclick="navigateTo('about', document.querySelectorAll('.nav-link')[2])" class="bg-white/20 backdrop-blur-md text-white border-2 border-white/30 px-8 py-4 rounded-full font-bold text-lg hover:bg-white/30 transition-all">
+                        Our Story
+                    </button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Price Range Section -->
-    <section class="py-20 bg-navy-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Featured Section -->
+        <div class="py-20 px-4 max-w-7xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="font-serif text-4xl font-bold mb-4">Rental Price Guide</h2>
-                <p class="text-gray-300">Current market rates for Lekki Phase 1 (2025)</p>
+                <h2 class="font-display text-4xl font-bold text-deep-brown mb-4">Popular Dishes</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Discover our customers' favorite meals</p>
             </div>
+
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-white/10 backdrop-blur rounded-3xl p-8 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                    <div class="text-gold-400 text-4xl mb-4"><i class="fas fa-home"></i></div>
-                    <h3 class="text-2xl font-bold mb-2">Entry Level</h3>
-                    <p class="text-3xl font-bold text-gold-400 mb-4">₦1.5M - ₦9M</p>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><i class="fas fa-check text-gold-500 mr-2"></i>Mini Flats & Studios</li>
-                        <li><i class="fas fa-check text-gold-500 mr-2"></i>Basic Furnishing</li>
-                        <li><i class="fas fa-check text-gold-500 mr-2"></i>Standard Security</li>
-                    </ul>
+                <div class="food-card bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer" onclick="addToCart('Jollof Rice Special', 3500, 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=400')">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=400" alt="Jollof Rice" class="food-image w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-display text-xl font-bold text-deep-brown">Jollof Rice Special</h3>
+                            <span class="text-warm-orange font-bold text-xl">₦3,500</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">Smoky party jollof with grilled chicken and plantain</p>
+                        <button class="w-full bg-warm-orange/10 text-warm-orange font-bold py-2 rounded-lg hover:bg-warm-orange hover:text-white transition-all">
+                            Add to Cart
+                        </button>
+                    </div>
                 </div>
-                <div class="bg-gold-500 rounded-3xl p-8 transform scale-105 shadow-2xl">
-                    <div class="text-white text-4xl mb-4"><i class="fas fa-building"></i></div>
-                    <h3 class="text-2xl font-bold mb-2 text-white">Mid Range</h3>
-                    <p class="text-3xl font-bold text-white mb-4">₦9M - ₦20M</p>
-                    <ul class="space-y-2 text-white/90">
-                        <li><i class="fas fa-check mr-2"></i>2-3 Bedroom Flats</li>
-                        <li><i class="fas fa-check mr-2"></i>Fully Serviced</li>
-                        <li><i class="fas fa-check mr-2"></i>Pool & Gym Access</li>
-                        <li><i class="fas fa-check mr-2"></i>24/7 Power</li>
-                    </ul>
+
+                <div class="food-card bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer" onclick="addToCart('Pounded Yam & Egusi', 4000, 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400')">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" alt="Pounded Yam" class="food-image w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-display text-xl font-bold text-deep-brown">Pounded Yam & Egusi</h3>
+                            <span class="text-warm-orange font-bold text-xl">₦4,000</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">Smooth pounded yam with rich egusi soup</p>
+                        <button class="w-full bg-warm-orange/10 text-warm-orange font-bold py-2 rounded-lg hover:bg-warm-orange hover:text-white transition-all">
+                            Add to Cart
+                        </button>
+                    </div>
                 </div>
-                <div class="bg-white/10 backdrop-blur rounded-3xl p-8 border border-white/20 hover:bg-white/20 transition-all duration-300">
-                    <div class="text-gold-400 text-4xl mb-4"><i class="fas fa-crown"></i></div>
-                    <h3 class="text-2xl font-bold mb-2">Luxury</h3>
-                    <p class="text-3xl font-bold text-gold-400 mb-4">₦20M - ₦50M+</p>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><i class="fas fa-check text-gold-500 mr-2"></i>4-5 Bedroom Penthouses</li>
-                        <li><i class="fas fa-check text-gold-500 mr-2"></i>Smart Home Features</li>
-                        <li><i class="fas fa-check text-gold-500 mr-2"></i>Private Cinema & Pool</li>
-                        <li><i class="fas fa-check text-gold-500 mr-2"></i>Concierge Service</li>
-                    </ul>
+
+                <div class="food-card bg-white rounded-2xl shadow-lg overflow-hidden cursor-pointer" onclick="addToCart('Suya Platter', 3000, 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400')">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" alt="Suya" class="food-image w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-display text-xl font-bold text-deep-brown">Suya Platter</h3>
+                            <span class="text-warm-orange font-bold text-xl">₦3,000</span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4">Spicy grilled beef skewers with pepper sauce</p>
+                        <button class="w-full bg-warm-orange/10 text-warm-orange font-bold py-2 rounded-lg hover:bg-warm-orange hover:text-white transition-all">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Choose Us -->
+        <div class="bg-warm-cream py-20">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-4xl font-bold text-deep-brown mb-4">Why Choose Us</h2>
+                </div>
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-warm-orange/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-fire text-2xl text-warm-orange"></i>
+                        </div>
+                        <h3 class="font-bold text-deep-brown mb-2">Authentic Recipes</h3>
+                        <p class="text-gray-600 text-sm">Traditional family recipes</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-warm-orange/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-leaf text-2xl text-warm-orange"></i>
+                        </div>
+                        <h3 class="font-bold text-deep-brown mb-2">Fresh Ingredients</h3>
+                        <p class="text-gray-600 text-sm">Locally sourced daily</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-warm-orange/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shipping-fast text-2xl text-warm-orange"></i>
+                        </div>
+                        <h3 class="font-bold text-deep-brown mb-2">Fast Delivery</h3>
+                        <p class="text-gray-600 text-sm">Delivered in 30 mins</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-warm-orange/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-heart text-2xl text-warm-orange"></i>
+                        </div>
+                        <h3 class="font-bold text-deep-brown mb-2">Made with Love</h3>
+                        <p class="text-gray-600 text-sm">Every dish with passion</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Amenities -->
-    <section id="amenities" class="py-20 bg-sage-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="font-serif text-4xl font-bold text-navy-900 mb-6">World-Class Amenities</h2>
-                    <p class="text-navy-600 text-lg mb-8">Every property in our portfolio comes with premium features designed for modern luxury living in Lagos.</p>
-                    
-                    <div class="grid grid-cols-2 gap-6">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center text-gold-600 flex-shrink-0">
-                                <i class="fas fa-bolt text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-navy-900">24/7 Power</h4>
-                                <p class="text-sm text-navy-600">Solar backup & generator</p>
-                            </div>
+    <!-- MENU PAGE -->
+    <section id="menu" class="page-section pt-20">
+        <div class="bg-gradient-to-r from-warm-orange to-warm-coral py-16">
+            <div class="text-center px-4">
+                <h1 class="font-display text-5xl font-bold text-white mb-4">Our Menu</h1>
+                <p class="text-warm-cream text-xl">Explore our delicious offerings</p>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <!-- Category Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button onclick="filterMenu('all', this)" class="menu-tab active px-6 py-2 rounded-full font-medium bg-warm-orange text-white" data-category="all">All</button>
+                <button onclick="filterMenu('rice', this)" class="menu-tab px-6 py-2 rounded-full font-medium bg-gray-200 text-gray-700 hover:bg-warm-orange hover:text-white transition-all" data-category="rice">Rice Dishes</button>
+                <button onclick="filterMenu('swallow', this)" class="menu-tab px-6 py-2 rounded-full font-medium bg-gray-200 text-gray-700 hover:bg-warm-orange hover:text-white transition-all" data-category="swallow">Swallows</button>
+                <button onclick="filterMenu('soups', this)" class="menu-tab px-6 py-2 rounded-full font-medium bg-gray-200 text-gray-700 hover:bg-warm-orange hover:text-white transition-all" data-category="soups">Soups</button>
+                <button onclick="filterMenu('grills', this)" class="menu-tab px-6 py-2 rounded-full font-medium bg-gray-200 text-gray-700 hover:bg-warm-orange hover:text-white transition-all" data-category="grills">Grills</button>
+                <button onclick="filterMenu('snacks', this)" class="menu-tab px-6 py-2 rounded-full font-medium bg-gray-200 text-gray-700 hover:bg-warm-orange hover:text-white transition-all" data-category="snacks">Snacks</button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div id="menu-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Rice Dishes -->
+                <div class="menu-item" data-category="rice">
+                    <div class="food-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=400" alt="Jollof Rice" class="food-image w-full h-full object-cover">
                         </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center text-gold-600 flex-shrink-0">
-                                <i class="fas fa-shield-alt text-xl"></i>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-display text-xl font-bold text-deep-brown">Party Jollof Rice</h3>
+                                <span class="text-warm-orange font-bold text-xl">₦2,500</span>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-navy-900">Security</h4>
-                                <p class="text-sm text-navy-600">CCTV & armed guards</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center text-gold-600 flex-shrink-0">
-                                <i class="fas fa-swimming-pool text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-navy-900">Swimming Pool</h4>
-                                <p class="text-sm text-navy-600">Infinity & heated options</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center text-gold-600 flex-shrink-0">
-                                <i class="fas fa-dumbbell text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-navy-900">Fitness Center</h4>
-                                <p class="text-sm text-navy-600">Modern gym equipment</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center text-gold-600 flex-shrink-0">
-                                <i class="fas fa-wifi text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-navy-900">Fiber Internet</h4>
-                                <p class="text-sm text-navy-600">High-speed connectivity</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gold-100 flex items-center justify-center text-gold-600 flex-shrink-0">
-                                <i class="fas fa-car text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-navy-900">Parking</h4>
-                                <p class="text-sm text-navy-600">Covered spaces</p>
-                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Classic smoky jollof with fried plantain</p>
+                            <button onclick="addToCart('Party Jollof Rice', 2500, 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=400')" class="w-full bg-warm-orange text-white font-bold py-3 rounded-lg hover:bg-warm-coral transition-all">
+                                Add to Cart
+                            </button>
                         </div>
                     </div>
+                </div>
+
+                <div class="menu-item" data-category="rice">
+                    <div class="food-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400" alt="Fried Rice" class="food-image w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-display text-xl font-bold text-deep-brown">Nigerian Fried Rice</h3>
+                                <span class="text-warm-orange font-bold text-xl">₦2,800</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Mixed vegetables with choice of protein</p>
+                            <button onclick="addToCart('Nigerian Fried Rice', 2800, 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400')" class="w-full bg-warm-orange text-white font-bold py-3 rounded-lg hover:bg-warm-coral transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swallows -->
+                <div class="menu-item" data-category="swallow">
+                    <div class="food-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" alt="Pounded Yam" class="food-image w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-display text-xl font-bold text-deep-brown">Pounded Yam</h3>
+                                <span class="text-warm-orange font-bold text-xl">₦1,500</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Smooth, fluffy yam swallow (Soup separate)</p>
+                            <button onclick="addToCart('Pounded Yam', 1500, 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400')" class="w-full bg-warm-orange text-white font-bold py-3 rounded-lg hover:bg-warm-coral transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="swallow">
+                    <div class="food-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=400" alt="Amala" class="food-image w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-display text-xl font-bold text-deep-brown">Amala (Yam Flour)</h3>
+                                <span class="text-warm-orange font-bold text-xl">₦1,200</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Dark yam flour swallow, Yoruba specialty</p>
+                            <button onclick="addToCart('Amala', 1200, 'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=400')" class="w-full bg-warm-orange text-white font-bold py-3 rounded-lg hover:bg-warm-coral transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soups -->
+                <div class="menu-item" data-category="soups">
+                    <div class="food-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400" alt="Egusi" class="food-image w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-display text-xl font-bold text-deep-brown">Egusi Soup</h3>
+                                <span class="text-warm-orange font-bold text-xl">₦2,500</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Melon seed soup with assorted meat</p>
+                            <button onclick="addToCart('Egusi Soup', 2500, 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400')" class="w-full bg-warm-orange text-white font-bold py-3 rounded-lg hover:bg-warm-coral transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grills -->
+                <div class="menu-item" data-category="grills">
+                    <div class="food-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400" alt="Suya" class="food-image w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-display text-xl font-bold text-deep-brown">Beef Suya</h3>
+                                <span class="text-warm-orange font-bold text-xl">₦1,500</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Spicy grilled beef skewers with yaji spice</p>
+                            <button onclick="addToCart('Beef Suya', 1500, 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=400')" class="w-full bg-warm-orange text-white font-bold py-3 rounded-lg hover:bg-warm-coral transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snacks -->
+                <div class="menu-item" data-category="snacks">
+                    <div class="food-card bg-white rounded-2xl shadow-lg overflow-hidden">
+                        <div class="h-48 overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400" alt="Meat Pie" class="food-image w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-display text-xl font-bold text-deep-brown">Meat Pie</h3>
+                                <span class="text-warm-orange font-bold text-xl">₦800</span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">Flaky pastry filled with seasoned meat</p>
+                            <button onclick="addToCart('Meat Pie', 800, 'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400')" class="w-full bg-warm-orange text-white font-bold py-3 rounded-lg hover:bg-warm-coral transition-all">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT PAGE -->
+    <section id="about" class="page-section pt-20">
+        <div class="bg-gradient-to-r from-warm-orange to-warm-coral py-16">
+            <div class="text-center px-4">
+                <h1 class="font-display text-5xl font-bold text-white mb-4">Our Story</h1>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-16">
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                <div>
+                    <h2 class="font-display text-4xl font-bold text-deep-brown mb-6">From Our Kitchen to Your Heart</h2>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        The Omo Eaters was born from a simple dream: to share the rich, comforting flavors of Nigerian home cooking with everyone.
+                    </p>
                 </div>
                 <div class="relative">
-                    <div class="absolute inset-0 bg-gradient-to-r from-gold-400 to-gold-600 rounded-3xl transform rotate-3 opacity-20"></div>
-                    <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&h=600&fit=crop" alt="Luxury Interior" class="relative rounded-3xl shadow-2xl w-full object-cover h-[500px]">
+                    <div class="absolute inset-0 bg-warm-orange rounded-3xl transform rotate-3"></div>
+                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600" alt="Kitchen" class="relative rounded-3xl shadow-xl w-full h-96 object-cover">
+                </div>
+            </div>
+
+            <!-- Owners -->
+            <div class="bg-warm-cream rounded-3xl p-12 mb-20">
+                <div class="text-center mb-12">
+                    <h2 class="font-display text-4xl font-bold text-deep-brown mb-4">Meet the Owners</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="bg-white rounded-2xl p-8 shadow-lg text-center">
+                        <div class="w-32 h-32 bg-gradient-to-br from-warm-orange to-warm-coral rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-user text-5xl text-white"></i>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-deep-brown mb-2">Ilenaye Osborne</h3>
+                        <p class="text-warm-orange font-medium mb-4">Co-Founder & Head Chef</p>
+                    </div>
+                    <div class="bg-white rounded-2xl p-8 shadow-lg text-center">
+                        <div class="w-32 h-32 bg-gradient-to-br from-warm-coral to-warm-red rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-user text-5xl text-white"></i>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-deep-brown mb-2">Juwon Ilenaye</h3>
+                        <p class="text-warm-orange font-medium mb-4">Co-Founder & Operations Director</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section - WITH JUWON ILENAYE -->
-    <section id="contact" class="py-20 bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="glass-card rounded-3xl p-8 md:p-12 shadow-2xl border border-sage-200">
-                <div class="text-center mb-8">
-                    <h2 class="font-serif text-3xl font-bold text-navy-900 mb-4">Schedule a Viewing</h2>
-                    <p class="text-navy-600">Get in touch with Juwon Ilenaye to find your perfect home in Lekki Phase 1</p>
-                </div>
-                
-                <!-- Contact Agent Card - JUWON ILENAYE -->
-                <div class="bg-sage-50 rounded-2xl p-6 mb-8 flex items-center gap-4">
-                    <div class="w-16 h-16 rounded-full bg-navy-900 flex items-center justify-center text-white text-2xl font-bold">
-                        JI
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-xl text-navy-900">Juwon Ilenaye</h3>
-                        <p class="text-navy-600">Senior Property Consultant</p>
-                        <p class="text-gold-600 font-semibold"><i class="fas fa-phone mr-2"></i>08143002152</p>
+    <!-- CONTACT PAGE -->
+    <section id="contact" class="page-section pt-20">
+        <div class="bg-gradient-to-r from-warm-orange to-warm-coral py-16">
+            <div class="text-center px-4">
+                <h1 class="font-display text-5xl font-bold text-white mb-4">Get in Touch</h1>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 py-16">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="font-display text-3xl font-bold text-deep-brown mb-8">Contact Information</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-warm-orange/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-phone text-warm-orange text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-deep-brown mb-1">Call Us</h3>
+                                <p class="text-gray-600">08143002152</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-warm-orange/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-envelope text-warm-orange text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-deep-brown mb-1">Email Us</h3>
+                                <p class="text-gray-600">playerd645@gmail.com</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <form class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you! Juwon Ilenaye will contact you shortly.');">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-navy-700 mb-2">Full Name</label>
-                            <input type="text" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="John Doe" required>
+                <div class="bg-white rounded-2xl shadow-lg p-8">
+                    <h2 class="font-display text-2xl font-bold text-deep-brown mb-6">Send us a Message</h2>
+                    <form onsubmit="handleContactSubmit(event)">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+                                <input type="text" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-warm-orange focus:ring-2 focus:ring-warm-orange/20 outline-none" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                                <input type="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-warm-orange focus:ring-2 focus:ring-warm-orange/20 outline-none" placeholder="john@example.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                                <textarea rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-warm-orange focus:ring-2 focus:ring-warm-orange/20 outline-none resize-none" placeholder="How can we help you?"></textarea>
+                            </div>
+                            <button type="submit" class="w-full btn-primary text-white font-bold py-4 rounded-lg text-lg">
+                                Send Message <i class="fas fa-paper-plane ml-2"></i>
+                            </button>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-navy-700 mb-2">Phone Number</label>
-                            <input type="tel" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="+234 800 000 0000" required>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-navy-700 mb-2">Email</label>
-                        <input type="email" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="john@example.com" required>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-navy-700 mb-2">Preferred Property Type</label>
-                        <select class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition">
-                            <option>Mini Flat (₦1.5M - ₦9M)</option>
-                            <option>2 Bedroom (₦8M - ₦15M)</option>
-                            <option>3 Bedroom (₦12M - ₦25M)</option>
-                            <option>4+ Bedroom (₦25M - ₦50M+)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-navy-700 mb-2">Message</label>
-                        <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-sage-200 focus:border-gold-500 focus:ring-2 focus:ring-gold-200 outline-none transition" placeholder="Tell Juwon about your requirements..."></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-navy-900 text-white py-4 rounded-xl font-bold text-lg hover:bg-gold-600 transition-all duration-300 transform hover:scale-[1.02]">
-                        <i class="fas fa-paper-plane mr-2"></i>Send to Juwon Ilenaye
-                    </button>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-navy-900 text-white py-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
+    <footer class="bg-deep-brown text-warm-cream py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
                 <div>
-                    <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;" class="flex items-center space-x-2 mb-4 cursor-pointer hover:opacity-80 transition-opacity">
-                        <i class="fas fa-building text-gold-500 text-2xl"></i>
-                        <span class="font-serif text-2xl font-bold">Lekki<span class="text-gold-500">Luxe</span></span>
-                    </a>
-                    <p class="text-gray-400 text-sm">Premium apartment rentals in Lekki Phase 1, Lagos. Your gateway to luxury living.</p>
+                    <h3 class="font-display text-xl font-bold mb-4">The Omo Eaters</h3>
+                    <p class="text-sm text-gray-400">Authentic Nigerian cuisine delivered to your doorstep.</p>
                 </div>
                 <div>
-                    <h4 class="font-bold mb-4 text-gold-400">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><a href="#properties" class="hover:text-white transition">Properties</a></li>
-                        <li><a href="#neighborhood" class="hover:text-white transition">Neighborhood Guide</a></li>
-                        <li><a href="#amenities" class="hover:text-white transition">Amenities</a></li>
-                        <li><a href="#contact" class="hover:text-white transition">Contact</a></li>
+                    <h4 class="font-bold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a onclick="navigateTo('home', document.querySelector('.nav-link'))" class="hover:text-warm-orange cursor-pointer transition-colors">Home</a></li>
+                        <li><a onclick="navigateTo('menu', document.querySelectorAll('.nav-link')[1])" class="hover:text-warm-orange cursor-pointer transition-colors">Menu</a></li>
+                        <li><a onclick="navigateTo('about', document.querySelectorAll('.nav-link')[2])" class="hover:text-warm-orange cursor-pointer transition-colors">About Us</a></li>
+                        <li><a onclick="navigateTo('contact', document.querySelectorAll('.nav-link')[3])" class="hover:text-warm-orange cursor-pointer transition-colors">Contact</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold mb-4 text-gold-400">Contact</h4>
-                    <ul class="space-y-2 text-gray-400 text-sm">
-                        <li><i class
-fas fa-phone mr-2"></i> 08143002152</li>
-                        <li><i class="fas fa-envelope mr-2"></i> playerd645@gmail.com</li>
-                        <li><i class="fas fa-map-marker-alt mr-2"></i> Lekki Phase 1, Lagos</li>
+                    <h4 class="font-bold text-white mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><i class="fas fa-phone mr-2 text-warm-orange"></i> 08143002152</li>
+                        <li><i class="fas fa-envelope mr-2 text-warm-orange"></i> playerd645@gmail.com</li>
                     </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold mb-4 text-gold-400">Follow Us</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold-500 transition"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold-500 transition"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gold-500 transition"><i class="fab fa-facebook-f"></i></a>
-                    </div>
                 </div>
             </div>
-            <div class="border-t border-white/10 pt-8 text-center text-gray-400 text-sm">
-                <p>&copy; 2025 LekkiLuxe. All rights reserved. Managed by Juwon Ilenaye.</p>
+            <div class="border-t border-white/10 pt-8 text-center">
+                <p class="text-sm text-gray-400">&copy; 2026 The Omo Eaters. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT - ADD THIS HERE -->
     <script>
+        // Cart State with localStorage
+        let cart = JSON.parse(localStorage.getItem('omoEatersCart')) || [];
+
+        // Navigation - FIXED: Now properly passes the clicked element
+        function navigateTo(page, element) {
+            // Hide all sections
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(page).classList.add('active');
+
+            // Update ALL nav links (desktop and mobile)
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Add active class to clicked element
+            if (element) {
+                element.classList.add('active');
+            }
+
+            // Close mobile menu
+            document.getElementById('mobile-menu').classList.add('hidden');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
         // Mobile Menu Toggle
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const hamburger = document.getElementById('hamburger');
-            menu.classList.toggle('open');
-            hamburger.classList.toggle('hamburger-active');
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
         }
 
-        // Smooth Scroll Functions
-        function scrollToContact() {
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        // Cart Functions
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('open');
         }
 
-        function scrollToProperties() {
-            document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
+        function addToCart(name, price, image) {
+            const existingItem = cart.find(item => item.name === name);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, image, quantity: 1 });
+            }
+
+            saveCart();
+            updateCart();
+            showToast(`${name} added to cart!`);
         }
 
-        function scrollToNeighborhood() {
-            document.getElementById('neighborhood').scrollIntoView({ behavior: 'smooth' });
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveCart();
+            updateCart();
         }
 
-        // Tab Switching for Neighborhood Section
-        function switchTab(tabName) {
-            // Hide all tab contents
-            const allContents = document.querySelectorAll('.tab-content');
-            allContents.forEach(content => {
-                content.classList.remove('active');
-            });
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity <= 0) {
+                removeFromCart(index);
+            } else {
+                saveCart();
+                updateCart();
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('omoEatersCart', JSON.stringify(cart));
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartSubtotal = document.getElementById('cart-subtotal');
+            const cartTotal = document.getElementById('cart-total');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             
-            // Remove active class from all tabs
-            const allTabs = document.querySelectorAll('.neighborhood-tab');
-            allTabs.forEach(tab => {
+            if (totalItems > 0) {
+                cartCount.textContent = totalItems;
+                cartCount.classList.remove('hidden');
+            } else {
+                cartCount.classList.add('hidden');
+            }
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="text-center py-12 text-gray-400">
+                        <i class="fas fa-shopping-basket text-6xl mb-4 opacity-30"></i>
+                        <p class="text-lg">Your cart is empty</p>
+                        <p class="text-sm mt-2">Add some delicious items!</p>
+                    </div>
+                `;
+            } else {
+                cartItems.innerHTML = cart.map((item, index) => `
+                    <div class="flex items-center space-x-4 bg-soft-cream p-4 rounded-xl">
+                        <img src="${item.image}" alt="${item.name}" class="w-20 h-20 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-deep-brown">${item.name}</h4>
+                            <p class="text-warm-orange font-bold">₦${item.price.toLocaleString()}</p>
+                            <div class="flex items-center space-x-2 mt-2">
+                                <button onclick="updateQuantity(${index}, -1)" class="quantity-btn w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center text-gray-600">
+                                    <i class="fas fa-minus text-xs"></i>
+                                </button>
+                                <span class="font-bold w-8 text-center">${item.quantity}</span>
+                                <button onclick="updateQuantity(${index}, 1)" class="quantity-btn w-8 h-8 rounded-full bg-white border border-gray-300 flex items-center justify-center text-gray-600">
+                                    <i class="fas fa-plus text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 p-2">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = cart.length > 0 ? 500 : 0;
+            const total = subtotal + deliveryFee;
+
+            cartSubtotal.textContent = `₦${subtotal.toLocaleString()}`;
+            cartTotal.textContent = `₦${total.toLocaleString()}`;
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('Your cart is empty!');
+                return;
+            }
+            
+            // Create WhatsApp message
+            const items = cart.map(item => `${item.quantity}x ${item.name} (₦${(item.price * item.quantity).toLocaleString()})`).join('%0A');
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) + 500;
+            const message = `Hello! I'd like to order:%0A%0A${items}%0A%0ADelivery: ₦500%0ATotal: ₦${total.toLocaleString()}`;
+            
+            window.open(`https://wa.me/2348143002152?text=${message}`, '_blank');
+            showToast('Opening WhatsApp...');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Menu Filter - FIXED: Now properly receives the clicked element
+        function filterMenu(category, element) {
+            // Update tabs
+            document.querySelectorAll('.menu-tab').forEach(tab => {
                 tab.classList.remove('active');
+                tab.classList.remove('bg-warm-orange', 'text-white');
+                tab.classList.add('bg-gray-200', 'text-gray-700');
             });
             
-            // Show selected content
-            document.getElementById('content-' + tabName).classList.add('active');
-            
-            // Activate selected tab
-            document.getElementById('tab-' + tabName).classList.add('active');
+            element.classList.add('active');
+            element.classList.remove('bg-gray-200', 'text-gray-700');
+            element.classList.add('bg-warm-orange', 'text-white');
+
+            // Filter items
+            const items = document.querySelectorAll('.menu-item');
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                    item.style.animation = 'fadeIn 0.4s ease';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
         }
 
-        // Property Modal Functions
-        const propertyData = {
-            1: {
-                title: "Furnished Mini Flat",
-                price: "₦9M/yr",
-                location: "Admiralty Way, Lekki Phase 1",
-                image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop",
-                beds: 1,
-                baths: 1,
-                sqm: 45,
-                description: "Stylish mini flat with modern furnishings, 24/7 power, and premium security. Perfect for young professionals.",
-                features: ["Fully Furnished", "24/7 Power", "Security", "Air Conditioning", "Water Heater"]
-            },
-            2: {
-                title: "Luxury Studio",
-                price: "₦5.5M/yr",
-                location: "Femi Okunnu Estate",
-                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop",
-                beds: "Studio",
-                baths: 1,
-                sqm: 35,
-                description: "Compact luxury living with access to swimming pool and gym facilities.",
-                features: ["Fully Furnished", "Pool Access", "Gym", "Parking", "Internet Ready"]
-            },
-            3: {
-                title: "Modern 2-Bed Apartment",
-                price: "₦12M/yr",
-                location: "Bourdillon Court, Lekki",
-                image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
-                beds: 2,
-                baths: 2,
-                sqm: 120,
-                description: "Spacious 2-bedroom with modern finishes, serviced estate, and excellent road network.",
-                features: ["Serviced Estate", "Gym", "24/7 Power", "Security", "Parking"]
-            },
-            4: {
-                title: "Executive 3-Bed Flat",
-                price: "₦18M/yr",
-                location: "Lekki Phase 1 Central",
-                image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop",
-                beds: 3,
-                baths: 3,
-                sqm: 180,
-                description: "Executive apartment with ocean views, smart home features, and premium finishes.",
-                features: ["Ocean View", "Smart Home", "Swimming Pool", "Gym", "CCTV"]
-            },
-            5: {
-                title: "Luxury 4-Bed Penthouse",
-                price: "₦35M/yr",
-                location: "Admiralty Way Waterfront",
-                image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop",
-                beds: 4,
-                baths: 4,
-                sqm: 350,
-                description: "Stunning penthouse with private elevator, panoramic views, and luxury amenities.",
-                features: ["Private Elevator", "Panoramic View", "Swimming Pool", "Smart Home", "Concierge"]
-            },
-            6: {
-                title: "Mansion Apartment",
-                price: "₦40M/yr",
-                location: "Exclusive Lekki Phase 1",
-                image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=600&fit=crop",
-                beds: 5,
-                baths: 6,
-                sqm: 500,
-                description: "Ultimate luxury living with private cinema, pool, and smart home automation.",
-                features: ["Private Cinema", "Swimming Pool", "Smart Home", "6 Bathrooms", "Garden"]
-            }
-        };
-
-        function openPropertyModal(id) {
-            const property = propertyData[id];
-            if (!property) return;
-            
-            const modalContent = document.getElementById('modalContent');
-            modalContent.innerHTML = `
-                <div class="relative h-64 sm:h-80">
-                    <img src="${property.image}" alt="${property.title}" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-navy-900/80 to-transparent"></div>
-                    <div class="absolute bottom-6 left-6 text-white">
-                        <h3 class="font-serif text-3xl font-bold mb-2">${property.title}</h3>
-                        <p class="text-gold-400 text-xl font-bold">${property.price}</p>
-                    </div>
-                </div>
-                <div class="p-6 sm:p-8">
-                    <div class="flex items-center text-navy-600 mb-4">
-                        <i class="fas fa-map-marker-alt text-gold-500 mr-2"></i>
-                        <span>${property.location}</span>
-                    </div>
-                    <div class="flex gap-6 mb-6 border-b border-sage-200 pb-6">
-                        <div class="text-center">
-                            <i class="fas fa-bed text-gold-500 text-xl mb-1"></i>
-                            <p class="font-semibold text-navy-900">${property.beds}</p>
-                            <p class="text-xs text-navy-600">Bedrooms</p>
-                        </div>
-                        <div class="text-center">
-                            <i class="fas fa-bath text-gold-500 text-xl mb-1"></i>
-                            <p class="font-semibold text-navy-900">${property.baths}</p>
-                            <p class="text-xs text-navy-600">Bathrooms</p>
-                        </div>
-                        <div class="text-center">
-                            <i class="fas fa-ruler-combined text-gold-500 text-xl mb-1"></i>
-                            <p class="font-semibold text-navy-900">${property.sqm}m²</p>
-                            <p class="text-xs text-navy-600">Size</p>
-                        </div>
-                    </div>
-                    <p class="text-navy-700 mb-6 leading-relaxed">${property.description}</p>
-                    <div class="mb-6">
-                        <h4 class="font-bold text-navy-900 mb-3">Features</h4>
-                        <div class="flex flex-wrap gap-2">
-                            ${property.features.map(f => `<span class="px-3 py-1 bg-sage-100 text-navy-700 rounded-full text-sm">${f}</span>`).join('')}
-                        </div>
-                    </div>
-                    <div class="flex gap-4">
-                        <button onclick="closePropertyModal(); scrollToContact();" class="flex-1 bg-navy-900 text-white py-3 rounded-xl font-semibold hover:bg-gold-600 transition-all duration-300">
-                            Schedule Viewing
-                        </button>
-                        <button onclick="closePropertyModal()" class="px-6 py-3 border-2 border-navy-900 text-navy-900 rounded-xl font-semibold hover:bg-navy-900 hover:text-white transition-all duration-300">
-                            Close
-                        </button>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('propertyModal').classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
+        // Contact Form
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast('Message sent successfully! We\'ll get back to you soon.');
+            e.target.reset();
         }
 
-        function closePropertyModal() {
-            document.getElementById('propertyModal').classList.add('hidden');
-            document.body.style.overflow = 'auto';
-        }
-
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closePropertyModal();
-            }
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCart();
         });
 
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('shadow-lg');
-            } else {
-                navbar.classList.remove('shadow-lg');
-            }
+        // Prevent cart from closing when clicking inside sidebar
+        document.getElementById('cart-sidebar').addEventListener('click', function(e) {
+            e.stopPropagation();
         });
     </script>
-
-<!-- WhatsApp Floating Button -->
-<a href="https://wa.me/2348143002152" target="_blank"
-   style="position:fixed;bottom:20px;right:20px;background:#25D366;color:white;
-   width:60px;height:60px;border-radius:50%;display:flex;align-items:center;
-   justify-content:center;font-size:28px;box-shadow:0 10px 20px rgba(0,0,0,0.2);
-   z-index:9999;text-decoration:none;">
-   <i class="fab fa-whatsapp"></i>
-</a>
-
-
-<!-- Animated WhatsApp Floating Button -->
-<style>
-@keyframes whatsappPulse {
-  0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.6); }
-  70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); }
-  100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); }
-}
-.whatsapp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #25D366;
-  color: white;
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 30px;
-  z-index: 9999;
-  text-decoration: none;
-  animation: whatsappPulse 2s infinite;
-}
-</style>
-
-<a class="whatsapp-float" href="https://wa.me/2348143002152?text=Hi,%20I'm%20interested%20in%20one%20of%20your%20Lekki%20properties.%20Can%20you%20give%20me%20more%20details?" target="_blank">
-<i class="fab fa-whatsapp"></i>
-</a>
-
 </body>
 </html>
